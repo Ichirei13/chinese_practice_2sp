@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中国語練習 － 第4〜6課（試験対策）</title>
+<style>
+  :root{
+    --ink:#1b1712;
+    --ink-2:#241f18;
+    --paper:#f2e6c9;
+    --paper-2:#e8d9ae;
+    --seal:#b3382a;
+    --seal-dark:#8c2a20;
+    --gold:#c9a05c;
+    --jade:#4f7a68;
+    --jade-dark:#3c5f51;
+    --muted:#8a7f6e;
+    --ivory:#f0e6d2;
+    --ink-text:#2b2118;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;}
+  body{
+    min-height:100vh;
+    background:
+      radial-gradient(circle at 15% 8%, rgba(201,160,92,0.10), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(179,56,42,0.12), transparent 45%),
+      var(--ink);
+    color:var(--ivory);
+    font-family:-apple-system, BlinkMacSystemFont, "Hiragino Sans", "PingFang SC", "Segoe UI", sans-serif;
+    display:flex;
+    justify-content:center;
+    padding:28px 16px 70px;
+  }
+  .app{width:100%;max-width:540px;}
+
+  header{text-align:center;margin-bottom:16px;}
+  .eyebrow{font-size:11px;letter-spacing:.28em;color:var(--gold);text-transform:uppercase;margin-bottom:6px;}
+  h1{
+    font-family:"Songti SC","Hiragino Mincho ProN","Noto Serif SC",serif;
+    font-weight:700;font-size:32px;margin:0 0 6px;color:var(--ivory);letter-spacing:.04em;
+  }
+  .sub{font-size:13px;color:var(--muted);}
+
+  .chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:16px 0 8px;}
+  .chip{
+    border:1px solid rgba(201,160,92,0.4);background:transparent;color:var(--ivory);
+    padding:7px 14px;border-radius:999px;font-size:13px;cursor:pointer;transition:all .15s ease;
+  }
+  .chip.on{background:var(--gold);border-color:var(--gold);color:var(--ink-text);font-weight:600;}
+
+  .modes{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:var(--ink-2);border-radius:12px;padding:4px;margin:14px 0 10px;}
+  .modes button{
+    border:none;background:transparent;color:var(--muted);
+    padding:10px 4px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s ease;
+  }
+  .modes button.active{background:var(--seal);color:var(--ivory);}
+  .modes button.wide{grid-column:1 / -1;}
+
+  .type-input{
+    width:100%;font-family:"Songti SC","Hiragino Mincho ProN","Noto Serif SC",serif;
+    font-size:30px;text-align:center;padding:12px 14px;border-radius:14px;
+    border:1.5px solid var(--paper-2);background:#fffdf6;color:var(--ink-text);
+    outline:none;margin-top:10px;
+  }
+  .type-input:focus{border-color:var(--seal);}
+  .type-input.ok{border-color:var(--jade);background:#eef6f1;}
+  .type-input.ng{border-color:var(--seal);}
+  .type-feedback{font-size:13px;margin-top:10px;min-height:18px;font-weight:600;}
+  .type-solution{margin-top:8px;text-align:center;display:none;}
+  .type-solution.show{display:block;}
+  .type-solution .s-cn{font-family:"Songti SC","Noto Serif SC",serif;font-size:26px;font-weight:700;color:var(--jade);}
+  .type-solution .s-py{font-family:ui-monospace,Menlo,monospace;font-style:italic;color:var(--muted);margin-top:2px;}
+
+  .level{display:flex;gap:6px;justify-content:center;margin-bottom:16px;}
+  .level button{
+    border:1px solid rgba(201,160,92,0.35);background:transparent;color:var(--muted);
+    padding:6px 16px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s ease;
+  }
+  .level button.on{background:var(--jade);border-color:var(--jade);color:#fff;}
+  .level.hidden{display:none;}
+
+  .weakbar{display:flex;gap:8px;justify-content:center;align-items:center;margin:-4px 0 16px;}
+  .weak-toggle{
+    border:1px solid rgba(179,56,42,0.5);background:transparent;color:var(--ivory);
+    padding:7px 14px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;
+    display:flex;align-items:center;gap:6px;transition:all .15s ease;
+  }
+  .weak-toggle.on{background:var(--seal);border-color:var(--seal);color:var(--ivory);}
+  .weak-badge{background:rgba(255,255,255,0.16);border-radius:999px;padding:1px 8px;font-size:12px;min-width:22px;text-align:center;}
+  .weak-toggle.on .weak-badge{background:rgba(0,0,0,0.28);}
+  .weak-reset{border:none;background:transparent;color:var(--muted);font-size:12px;cursor:pointer;text-decoration:underline;}
+  .weak-reset.hidden{display:none;}
+  .weak-list-btn{border:1px solid rgba(201,160,92,0.4);background:transparent;color:var(--ivory);padding:7px 12px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;}
+  .weak-list-btn:active{transform:scale(.97);}
+  .seg{display:flex;gap:4px;background:var(--ink-2);border-radius:999px;padding:3px;}
+  .seg button{border:none;background:transparent;color:var(--muted);padding:7px 11px;border-radius:999px;font-size:12.5px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:5px;transition:all .15s ease;}
+  .seg button.on{background:var(--seal);color:var(--ivory);}
+  .seg-badge{background:rgba(255,255,255,0.16);border-radius:999px;padding:0 6px;font-size:11px;min-width:18px;text-align:center;}
+  .seg button.on .seg-badge{background:rgba(0,0,0,0.28);}
+
+  /* ===== 苦手一覧オーバーレイ ===== */
+  .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.55);display:none;justify-content:center;align-items:flex-end;z-index:50;}
+  .overlay.show{display:flex;}
+  .sheet{width:100%;max-width:540px;max-height:88vh;background:var(--ink-2);border-radius:20px 20px 0 0;display:flex;flex-direction:column;box-shadow:0 -10px 40px rgba(0,0,0,0.5);}
+  .sheet-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px 12px;border-bottom:1px solid rgba(201,160,92,0.2);}
+  .sheet-head h2{margin:0;font-size:18px;color:var(--ivory);font-family:"Songti SC","Noto Serif SC",serif;}
+  .sheet-head h2 span{color:var(--gold);font-size:14px;font-family:inherit;}
+  .sheet-close{border:none;background:transparent;color:var(--muted);font-size:22px;cursor:pointer;line-height:1;}
+  .sheet-body{overflow-y:auto;padding:8px 14px 4px;flex:1;}
+  .sheet-foot{padding:12px 16px 18px;border-top:1px solid rgba(201,160,92,0.2);}
+  .wl-group-h{font-size:12px;letter-spacing:.15em;color:var(--gold);margin:14px 6px 6px;text-transform:uppercase;}
+  .wl-row{display:flex;align-items:center;gap:10px;background:var(--ink);border:1px solid rgba(201,160,92,0.18);border-radius:12px;padding:10px 12px;margin-bottom:7px;}
+  .wl-info{flex:1;min-width:0;}
+  .wl-main{font-family:"Songti SC","Noto Serif SC",serif;font-size:19px;font-weight:700;color:var(--ivory);}
+  .wl-sub{font-size:12px;color:var(--muted);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .wl-meta{font-size:11px;color:var(--jade);margin-top:3px;}
+  .wl-tag{font-size:10px;color:var(--muted);border:1px solid rgba(201,160,92,0.3);border-radius:999px;padding:1px 7px;white-space:nowrap;}
+  .wl-del{border:none;background:rgba(179,56,42,0.85);color:#fff;border-radius:8px;width:30px;height:30px;font-size:15px;cursor:pointer;flex-shrink:0;}
+  .wl-del:active{transform:scale(.9);}
+  .wl-empty{text-align:center;color:var(--muted);padding:40px 10px;}
+
+  .stage{position:relative;perspective:1200px;margin-bottom:16px;min-height:300px;}
+
+  /* ===== card / flashcard ===== */
+  .card{
+    position:relative;background:var(--paper);color:var(--ink-text);
+    border-radius:26px 26px 14px 14px;border:1px solid var(--paper-2);
+    box-shadow:0 18px 40px rgba(0,0,0,0.35), inset 0 0 0 6px rgba(255,255,255,0.15);
+    min-height:300px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:34px 24px;text-align:center;transform-style:preserve-3d;
+    transition:transform .5s cubic-bezier(.2,.8,.2,1);
+  }
+  .card.clickable{cursor:pointer;}
+  .card.flipped{transform:rotateY(180deg);}
+  .face{backface-visibility:hidden;position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:34px 24px;}
+  .face.back{transform:rotateY(180deg);}
+  .lesson-tag{position:absolute;top:14px;left:16px;font-size:11px;color:var(--muted);border:1px solid var(--paper-2);padding:2px 8px;border-radius:999px;}
+  .prompt-label{position:absolute;top:14px;right:16px;font-size:11px;color:var(--seal-dark);font-weight:700;letter-spacing:.05em;}
+
+  .hanzi{font-family:"Songti SC","Hiragino Mincho ProN","Noto Serif SC",serif;font-size:54px;font-weight:700;line-height:1.1;margin-bottom:14px;}
+  .pinyin{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-style:italic;font-size:20px;color:var(--seal-dark);margin-bottom:6px;line-height:1.4;}
+  .jp-prompt{font-size:22px;font-weight:600;line-height:1.5;}
+  .meaning{font-size:20px;font-weight:600;line-height:1.4;}
+  .hint{font-size:12px;color:var(--muted);margin-top:16px;}
+  .prompt-py{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-style:italic;font-size:18px;color:var(--seal-dark);line-height:1.5;}
+
+  /* ===== quiz choices ===== */
+  .choices{display:grid;gap:10px;margin-top:16px;}
+  .choice{
+    background:var(--ink-2);border:1px solid rgba(201,160,92,0.25);color:var(--ivory);
+    border-radius:14px;padding:15px 16px;font-size:17px;text-align:left;cursor:pointer;transition:all .15s ease;
+    font-family:"Songti SC","Hiragino Mincho ProN","Noto Serif SC",serif;
+    display:flex;align-items:center;gap:12px;
+  }
+  .choice .num{
+    flex-shrink:0;width:24px;height:24px;border-radius:7px;background:rgba(201,160,92,0.22);
+    color:var(--gold);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;
+    font-family:ui-monospace,Menlo,monospace;
+  }
+  .choice.correct .num,.choice.wrong .num{background:rgba(255,255,255,0.22);color:#fff;}
+  .choice:active{transform:scale(.98);}
+  .choice.correct{background:var(--jade);border-color:var(--jade);color:#fff;}
+  .choice.wrong{background:var(--seal-dark);border-color:var(--seal-dark);color:#fff;opacity:.9;}
+  .choice.dim{opacity:.4;}
+
+  /* ===== reorder ===== */
+  .reorder-prompt{background:var(--paper);color:var(--ink-text);border-radius:18px;padding:18px 18px 14px;text-align:center;margin-bottom:14px;position:relative;border:1px solid var(--paper-2);}
+  .reorder-ja{font-size:19px;font-weight:600;line-height:1.5;}
+  .reorder-answer{
+    min-height:64px;background:rgba(240,230,210,0.06);border:1.5px dashed rgba(201,160,92,0.4);
+    border-radius:14px;padding:12px;display:flex;flex-wrap:wrap;gap:8px;align-items:flex-start;margin-bottom:12px;
+  }
+  .reorder-answer.empty::before{content:"ここに語を並べる";color:var(--muted);font-size:13px;align-self:center;margin:auto;}
+  .reorder-answer.ok{border-color:var(--jade);border-style:solid;background:rgba(79,122,104,0.12);}
+  .reorder-answer.ng{border-color:var(--seal);border-style:solid;}
+  .reorder-bank{display:flex;flex-wrap:wrap;gap:8px;min-height:44px;padding:4px 0;}
+  .tile{
+    font-family:"Songti SC","Hiragino Mincho ProN","Noto Serif SC",serif;
+    background:var(--gold);color:var(--ink-text);border:none;border-radius:10px;
+    padding:11px 15px;font-size:19px;font-weight:600;cursor:pointer;transition:transform .1s ease, opacity .1s ease;
+    box-shadow:0 3px 0 rgba(0,0,0,0.25);
+  }
+  .tile:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,0.25);}
+  .tile.in-answer{background:var(--paper);}
+  .reorder-solution{margin-top:8px;font-size:15px;color:var(--ivory);text-align:center;display:none;}
+  .reorder-solution.show{display:block;}
+  .reorder-solution .sol-cn{font-family:"Songti SC","Noto Serif SC",serif;font-size:20px;font-weight:700;color:var(--jade);}
+  .reorder-solution .sol-py{font-family:ui-monospace,Menlo,monospace;font-style:italic;font-size:14px;color:var(--muted);margin-top:2px;}
+
+  /* ===== controls ===== */
+  .controls{display:flex;gap:10px;margin-top:14px;}
+  .btn{flex:1;border:none;border-radius:14px;padding:14px 0;font-size:14px;font-weight:700;cursor:pointer;transition:transform .1s ease;}
+  .btn:active{transform:scale(.97);}
+  .btn.primary{background:var(--seal);color:var(--ivory);}
+  .btn.ghost{background:transparent;border:1px solid rgba(201,160,92,0.4);color:var(--ivory);}
+  .btn.next{background:var(--gold);color:var(--ink-text);}
+  .btn:disabled{opacity:.4;cursor:default;}
+
+  footer{margin-top:24px;}
+  .score-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:13px;color:var(--muted);}
+  .likes{display:flex;align-items:center;gap:6px;color:var(--gold);font-weight:700;}
+  .stamps{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;padding:10px;background:rgba(0,0,0,0.2);border-radius:14px;}
+  .dot{width:11px;height:11px;border-radius:50%;background:rgba(201,160,92,0.18);}
+  .dot.on{background:var(--seal);}
+
+  .shake{animation:shake .4s ease;}
+  @keyframes shake{0%,100%{transform:translateX(0);}20%{transform:translateX(-8px);}40%{transform:translateX(7px);}60%{transform:translateX(-5px);}80%{transform:translateX(4px);}}
+  .empty-note{text-align:center;color:var(--muted);padding:40px 10px;}
+  @media (prefers-reduced-motion: reduce){.card,.shake{animation:none !important;transition:none !important;}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="eyebrow">Exam Practice</div>
+    <h1>中国語練習</h1>
+    <div class="sub">第4〜6課 試験対策（故宮・点赞・追剧）</div>
+  </header>
+
+  <div class="chips" id="chips"></div>
+
+  <div class="modes">
+    <button data-mode="pin" class="active">拼音 → 中国語</button>
+    <button data-mode="jp">日本語 → 中国語</button>
+    <button data-mode="reorder">並べ替え</button>
+    <button data-mode="flash">フラッシュカード</button>
+    <button data-mode="type">単語タイピング</button>
+    <button data-mode="types">文タイピング</button>
+  </div>
+
+  <div class="level" id="levelToggle">
+    <button data-level="word" class="on">単語</button>
+    <button data-level="sentence">文</button>
+  </div>
+
+  <div class="weakbar">
+    <div class="seg" id="filterSeg">
+      <button data-filter="all" class="on">すべて</button>
+      <button data-filter="weaknew">苦手＋未 <span class="seg-badge" id="badgeWeaknew">0</span></button>
+      <button data-filter="weak">苦手のみ <span class="seg-badge" id="badgeWeak">0</span></button>
+    </div>
+    <button class="weak-list-btn" id="weakListBtn">📋 一覧</button>
+  </div>
+
+  <div class="stage" id="stage"></div>
+
+  <div class="controls" id="controls"></div>
+
+  <footer>
+    <div class="score-row">
+      <span id="progress">0 / 0</span>
+      <span class="likes">👍 <span id="score">0</span></span>
+    </div>
+    <div class="stamps" id="stampStrip"></div>
+  </footer>
+</div>
+
+<div class="overlay" id="weakOverlay">
+  <div class="sheet">
+    <div class="sheet-head">
+      <h2>苦手リスト <span id="weakCount"></span></h2>
+      <button class="sheet-close" id="weakClose">✕</button>
+    </div>
+    <div class="sheet-body" id="weakListBody"></div>
+    <div class="sheet-foot" style="display:flex;gap:8px;">
+      <button class="btn ghost" id="weakClearAll">苦手をリセット</button>
+      <button class="btn ghost" id="weakClearKnown">覚えたをリセット</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============== DATA ============== */
+const WORDS = [
+["故宫","gùgōng","故宮",4],["准备","zhǔnbèi","準備する／〜するつもりだ",4],["～好","~hǎo","ちゃんと〜する（結果補語）",4],
+["当然","dāngrán","もちろん",4],["这么","zhème","こんなに",4],["一直","yīzhí","ずっと",4],
+["年轻人","niánqīng rén","若者",4],["穿","chuān","着る／履く",4],["着","zhe","〜している（状態の持続）",4],
+["古装","gǔzhuāng","古代の衣装",4],["拍","pāi","撮る",4],["租","zū","レンタルする",4],
+["套","tào","セット",4],["机会","jīhuì","機会",4],["晚饭","wǎnfàn","晩ご飯",4],
+["拿","ná","持つ",4],["站","zhàn","立つ",4],["听","tīng","聞く",4],
+["音乐","yīnyuè","音楽",4],["找","zhǎo","探す",4],["坐","zuò","座る",4],
+["躺","tǎng","横たわる",4],["戴","dài","つける／かぶる",4],["披","pī","はおる",4],
+["开","kāi","開く、開ける",4],["关","guān","閉まる、閉める",4],["第二天","dì-èr tiān","次の日、翌日",4],
+["参观","cānguān","見物する、見学する",4],["景点","jǐngdiǎn","観光スポット",4],["有意思","yǒu yìsi","面白い",4],
+["玩儿","wánr","遊ぶ、遊びに行く",4],["有名","yǒumíng","有名だ",4],["经常","jīngcháng","よく、いつも",4],
+["网上","wǎngshàng","ネット上",4],["试试","shìshi","試してみる",4],["体验","tǐyàn","体験する",4],
+["文化","wénhuà","文化",4],["打算","dǎsuàn","〜するつもりだ、計画する",4],["然后","ránhòu","それから",4],
+["发","fā","（SNSに）投稿する",4],["分享","fēnxiǎng","シェアする",4],["照片","zhàopiàn","写真",4],
+["点赞","diǎnzàn","いいね！を押す",5],["开心","kāixīn","楽しい",5],["不少","bùshǎo","多くの",5],
+["第一次","dì-yī cì","初めて、第1回目",5],["感觉","gǎnjué","感じる、〜と思う",5],["怎么","zěnme","なんで",5],
+["加","jiā","加える",5],["标题","biāotí","タイトル",5],["穿越","chuānyuè","通り抜ける、タイムスリップする",5],
+["时空","shíkōng","時空",5],["打卡","dǎkǎ","話題のスポットを訪れる",5],["肯定","kěndìng","きっと",5],
+["会～的","huì~de","〜はずだ",5],["被","bèi","〜される（受け身）",5],["暑假","shǔjià","夏休み",5],
+["旅游","lǚyóu","旅行する",5],["工作","gōngzuò","仕事、働く",5],["迟到","chídào","遅刻する",5],
+["弟弟","dìdi","弟",5],["打工","dǎgōng","アルバイトをする",5],["学开车","xué kāichē","車の運転を習う",5],
+["回老家","huí lǎojiā","実家に帰る",5],["去旅游","qù lǚyóu","旅行に行く",5],["去留学","qù liúxué","留学に行く",5],
+["去海边","qù hǎibiān","海に行く",5],["去露营","qù lùyíng","キャンプに行く",5],["看演唱会","kàn yǎnchànghuì","コンサートを見る",5],
+["做志愿者","zuò zhìyuànzhě","ボランティアをする",5],["不过","búguò","しかし",5],["之前","zhīqián","〜する以前",5],
+["新鲜","xīnxiān","新鮮だ",5],["真","zhēn","本当に",5],["不错","búcuò","なかなか良い",5],
+["追剧","zhuī jù","ドラマを追う",6],["越来越","yuèláiyuè","ますます",6],["爱","ài","〜することを好む",6],
+["追","zhuī","追う、追いかける",6],["电视剧","diànshìjù","ドラマ",6],["部","bù","〜本（量詞）",6],
+["古装剧","gǔzhuāngjù","時代劇",6],["越～越～","yuè~yuè~","〜すればするほど〜",6],["关于","guānyú","〜に関する",6],
+["历史","lìshǐ","歴史",6],["内容","nèiróng","内容",6],["懂","dǒng","理解する",6],
+["有的","yǒude","ある〜、あるもの",6],["地方","dìfang","ところ",6],["应该","yīnggāi","〜はずだ",6],
+["天气","tiānqì","天気",6],["流利","liúlì","流ちょうだ",6],["乌龙茶","wūlóngchá","ウーロン茶",6],
+["校车","xiàochē","スクールバス",6],["钥匙","yàoshi","鍵",6],["吃完","chīwán","食べ終わる",6],
+["喝完","hēwán","飲み終わる",6],["看完","kànwán","読み終わる／見終わる",6],["看到","kàndào","見える、見かける",6],
+["听到","tīngdào","聞こえる",6],["找到","zhǎodào","見つける",6],["买到","mǎidào","買って手に入れる",6],
+["回来","huílai","帰ってくる",6],["进去","jìnqu","入っていく",6],["但是","dànshì","しかし",6],
+["实在","shízài","本当に",6],["最近","zuìjìn","最近",6],["哪儿","nǎr","どこ",6],
+["可以","kěyǐ","〜できる、〜してもよい",6],["网站","wǎngzhàn","ウェブサイト",6],["汉语","Hànyǔ","中国語",6],
+["难","nán","難しい",6]
+].map(([h,p,m,l])=>({h,p,m,l}));
+
+// 各文: cn=簡体字, py=拼音, ja=日本語, l=課. tokens があれば並べ替えに出題（長い複文は tokens:null で4択専用）
+const SENTENCES = [
+ /* ===== 第4課 ===== */
+ {cn:"很多年轻人喜欢穿着古装拍照。",py:"Hěn duō niánqīng rén xǐhuan chuānzhe gǔzhuāng pāizhào.",ja:"多くの若者は古装を着て写真を撮るのが好きだ。",l:4,tokens:["很多","年轻人","喜欢","穿","着","古装","拍照","。"]},
+ {cn:"我经常在网上看到。",py:"Wǒ jīngcháng zài wǎngshàng kàndào.",ja:"私はよくネットで見かける。",l:4,tokens:["我","经常","在","网上","看到","。"]},
+ {cn:"你也想穿着拍吗？",py:"Nǐ yě xiǎng chuānzhe pāi ma?",ja:"あなたも着て撮りたい？",l:4,tokens:["你","也","想","穿","着","拍","吗","？"]},
+ {cn:"我很想试试。",py:"Wǒ hěn xiǎng shìshi.",ja:"とても試してみたい。",l:4,tokens:["我","很","想","试试","。"]},
+ {cn:"我们都租一套吧。",py:"Wǒmen dōu zū yī tào ba.",ja:"みんなで一式レンタルしよう。",l:4,tokens:["我们","都","租","一","套","吧","。"]},
+ {cn:"故宫是非常有名的景点。",py:"Gùgōng shì fēicháng yǒumíng de jǐngdiǎn.",ja:"故宮はとても有名な観光スポットだ。",l:4,tokens:["故宫","是","非常","有名","的","景点","。"]},
+ {cn:"山本一直想去那儿玩儿。",py:"Shānběn yīzhí xiǎng qù nàr wánr.",ja:"山本はずっとそこへ遊びに行きたかった。",l:4,tokens:["山本","一直","想","去","那儿","玩儿","。"]},
+ {cn:"我写好作业了。",py:"Wǒ xiěhǎo zuòyè le.",ja:"私は宿題をちゃんとやり終えた。",l:4,tokens:["我","写好","作业","了","。"]},
+ {cn:"妈妈已经做好晚饭了。",py:"Māma yǐjīng zuòhǎo wǎnfàn le.",ja:"母はもう晩ご飯をちゃんと作り終えた。",l:4,tokens:["妈妈","已经","做好","晚饭","了","。"]},
+ {cn:"学生们坐着上课。",py:"Xuéshengmen zuòzhe shàngkè.",ja:"学生たちは座ったまま授業を受ける。",l:4,tokens:["学生们","坐","着","上课","。"]},
+ {cn:"他经常听着音乐看书。",py:"Tā jīngcháng tīngzhe yīnyuè kàn shū.",ja:"彼はよく音楽を聞きながら本を読む。",l:4,tokens:["他","经常","听","着","音乐","看","书","。"]},
+ {cn:"我看到他了。",py:"Wǒ kàndào tā le.",ja:"私は彼を見かけた。",l:4,tokens:["我","看到","他","了","。"]},
+ {cn:"她找到书了。",py:"Tā zhǎodào shū le.",ja:"彼女は本を見つけた。",l:4,tokens:["她","找到","书","了","。"]},
+ {cn:"你想穿着古装拍照吗？",py:"Nǐ xiǎng chuānzhe gǔzhuāng pāizhào ma?",ja:"古装を着て写真を撮りたい？",l:4,tokens:["你","想","穿","着","古装","拍照","吗","？"]},
+ {cn:"你买到《西游记》了吗？",py:"Nǐ mǎidào Xīyóujì le ma?",ja:"『西遊記』は手に入れた？",l:4,tokens:["你","买到","《西游记》","了","吗","？"]},
+ {cn:"我在图书馆看到他了。",py:"Wǒ zài túshūguǎn kàndào tā le.",ja:"私は図書館で彼を見かけた。",l:4,tokens:["我","在","图书馆","看到","他","了","。"]},
+ {cn:"我一直想去中国。",py:"Wǒ yīzhí xiǎng qù Zhōngguó.",ja:"私はずっと中国に行きたかった。",l:4,tokens:["我","一直","想","去","中国","。"]},
+ {cn:"我一直想去故宫。",py:"Wǒ yīzhí xiǎng qù gùgōng.",ja:"私はずっと故宮に行きたかった。",l:4,tokens:["我","一直","想","去","故宫","。"]},
+ {cn:"山本觉得很有意思。",py:"Shānběn juéde hěn yǒu yìsi.",ja:"山本はとても面白いと思った。",l:4,tokens:["山本","觉得","很","有意思","。"]},
+ {cn:"她每天走着去学校。",py:"Tā měitiān zǒuzhe qù xuéxiào.",ja:"彼女は毎日歩いて学校へ行く。",l:4,tokens:["她","每天","走","着","去","学校","。"]},
+ {cn:"你拿着什么？",py:"Nǐ názhe shénme?",ja:"あなたは何を持っているの？",l:4,tokens:["你","拿","着","什么","？"]},
+ {cn:"我们想租车。",py:"Wǒmen xiǎng zū chē.",ja:"私たちは車を借りたい。",l:4,tokens:["我们","想","租","车","。"]},
+ {cn:"这是体验中国文化的好机会。",py:"Zhè shì tǐyàn Zhōngguó wénhuà de hǎo jīhuì.",ja:"これは中国文化を体験する良い機会だ。",l:4,tokens:["这","是","体验","中国","文化","的","好","机会","。"]},
+ {cn:"他每天走着去车站。",py:"Tā měitiān zǒuzhe qù chēzhàn.",ja:"彼は毎日歩いて駅へ行く。",l:4,tokens:["他","每天","走","着","去","车站","。"]},
+ {cn:"他们拍了很多照片。",py:"Tāmen pāile hěn duō zhàopiàn.",ja:"彼らはたくさんの写真を撮った。",l:4,tokens:["他们","拍","了","很多","照片","。"]},
+ {cn:"她穿着一件新衣服。",py:"Tā chuānzhe yí jiàn xīn yīfu.",ja:"彼女は1着の新しい服を着ている。",l:4,tokens:["她","穿","着","一","件","新","衣服","。"]},
+ {cn:"他还不准备回家。",py:"Tā hái bù zhǔnbèi huí jiā.",ja:"彼はまだ家に帰るつもりがない。",l:4,tokens:["他","还","不","准备","回","家","。"]},
+ {cn:"他喜欢躺着看书。",py:"Tā xǐhuan tǎngzhe kàn shū.",ja:"彼は横になって本を読むのが好きだ。",l:4,tokens:["他","喜欢","躺","着","看","书","。"]},
+ {cn:"你在喝什么茶？",py:"Nǐ zài hē shénme chá?",ja:"あなたは何茶を飲んでいるの？",l:4,tokens:["你","在","喝","什么","茶","？"]},
+ {cn:"你准备好了吗？",py:"Nǐ zhǔnbèihǎo le ma?",ja:"ちゃんと準備できた？",l:4,tokens:["你","准备好","了","吗","？"]},
+ {cn:"明天我们去故宫玩儿，准备好了吗？",py:"Míngtiān wǒmen qù gùgōng wánr, zhǔnbèihǎo le ma?",ja:"明日、私たちは故宮に遊びに行くけど、ちゃんと準備できた？",l:4,tokens:null},
+ {cn:"故宫这么有名，我一直想去。",py:"Gùgōng zhème yǒumíng, wǒ yīzhí xiǎng qù.",ja:"故宮はこんなに有名で、私はずっと行きたかった。",l:4,tokens:null},
+ {cn:"李华和山本第二天去参观故宫。",py:"Lǐ Huá hé Shānběn dì-èr tiān qù cānguān gùgōng.",ja:"李華と山本は翌日、故宮を見学しに行く。",l:4,tokens:null},
+ {cn:"因为这是体验中国文化的好机会，所以他们也打算租一套古装体验体验。",py:"Yīnwèi zhè shì tǐyàn Zhōngguó wénhuà de hǎo jīhuì, suǒyǐ tāmen yě dǎsuàn zū yī tào gǔzhuāng tǐyàn tǐyàn.",ja:"これは中国文化を体験する良い機会なので、彼らも一式古装をレンタルして体験してみるつもりだ。",l:4,tokens:null},
+ {cn:"他们还想拍很多古装照片，然后发到网上分享。",py:"Tāmen hái xiǎng pāi hěn duō gǔzhuāng zhàopiàn, ránhòu fā dào wǎngshàng fēnxiǎng.",ja:"彼らはさらにたくさんの古装写真を撮って、それからネットに投稿してシェアしたい。",l:4,tokens:null},
+
+ /* ===== 第5課 ===== */
+ {cn:"今天太开心了。",py:"Jīntiān tài kāixīn le.",ja:"今日はとても嬉しい。",l:5,tokens:["今天","太","开心","了","。"]},
+ {cn:"我想加一个标题。",py:"Wǒ xiǎng jiā yí ge biāotí.",ja:"私はタイトルを一つ加えたい。",l:5,tokens:["我","想","加","一个","标题","。"]},
+ {cn:"还有时间，不会迟到的。",py:"Hái yǒu shíjiān, búhuì chídào de.",ja:"まだ時間があるから、遅刻しないよ。",l:5,tokens:["还","有","时间","，","不会","迟到","的","。"]},
+ {cn:"我不准备点外卖。",py:"Wǒ bù zhǔnbèi diǎn wàimài.",ja:"私はデリバリーを注文するつもりはない。",l:5,tokens:["我","不","准备","点","外卖","。"]},
+ {cn:"我准备暑假学开车。",py:"Wǒ zhǔnbèi shǔjià xué kāichē.",ja:"私は夏休みに運転を習うつもりだ。",l:5,tokens:["我","准备","暑假","学","开车","。"]},
+ {cn:"明天会下雨吗？",py:"Míngtiān huì xià yǔ ma?",ja:"明日は雨が降るだろうか。",l:5,tokens:["明天","会","下","雨","吗","？"]},
+ {cn:"肯定会被很多人点赞的。",py:"Kěndìng huì bèi hěn duō rén diǎnzàn de.",ja:"きっと多くの人にいいねを押されるよ。",l:5,tokens:["肯定","会","被","很多","人","点赞","的","。"]},
+ {cn:"你准备什么时候去旅游？",py:"Nǐ zhǔnbèi shénme shíhou qù lǚyóu?",ja:"あなたはいつ旅行に行くつもり？",l:5,tokens:["你","准备","什么时候","去","旅游","？"]},
+ {cn:"我看到你发了不少照片。",py:"Wǒ kàndào nǐ fāle bùshǎo zhàopiàn.",ja:"君がたくさん写真を投稿したの見たよ。",l:5,tokens:["我","看到","你","发","了","不少","照片","。"]},
+ {cn:"我的弟弟第一次去露营了。",py:"Wǒ de dìdi dì-yī cì qù lùyíng le.",ja:"私の弟は初めてキャンプに行った。",l:5,tokens:["我的","弟弟","第一次","去","露营","了","。"]},
+ {cn:"来我老家玩儿吧。",py:"Lái wǒ lǎojiā wánr ba.",ja:"私の実家に遊びにおいでよ。",l:5,tokens:["来","我","老家","玩儿","吧","。"]},
+ {cn:"我一直喜欢看穿越小说。",py:"Wǒ yīzhí xǐhuan kàn chuānyuè xiǎoshuō.",ja:"私はずっとタイムスリップ小説が好きだった。",l:5,tokens:["我","一直","喜欢","看","穿越","小说","。"]},
+ {cn:"我还没有发照片。",py:"Wǒ hái méiyou fā zhàopiàn.",ja:"私はまだ写真を投稿していない。",l:5,tokens:["我","还","没有","发","照片","。"]},
+ {cn:"你怎么还没有发？",py:"Nǐ zěnme hái méiyou fā?",ja:"なんでまだ投稿していないの？",l:5,tokens:["你","怎么","还","没有","发","？"]},
+ {cn:"你准备写什么？",py:"Nǐ zhǔnbèi xiě shénme?",ja:"何を書くつもり？",l:5,tokens:["你","准备","写","什么","？"]},
+ {cn:"山本很喜欢这个标题。",py:"Shānběn hěn xǐhuan zhège biāotí.",ja:"山本はこのタイトルがとても気に入った。",l:5,tokens:["山本","很","喜欢","这个","标题","。"]},
+ {cn:"我准备暑假去旅游。",py:"Wǒ zhǔnbèi shǔjià qù lǚyóu.",ja:"私は夏休みに旅行に行くつもりだ。",l:5,tokens:["我","准备","暑假","去","旅游","。"]},
+ {cn:"你准备什么时候找工作？",py:"Nǐ zhǔnbèi shénme shíhou zhǎo gōngzuò?",ja:"あなたはいつ仕事を探すつもり？",l:5,tokens:["你","准备","什么时候","找","工作","？"]},
+ {cn:"她被很多人关注了。",py:"Tā bèi hěn duō rén guānzhù le.",ja:"彼女はたくさんの人にフォローされた。",l:5,tokens:["她","被","很多","人","关注","了","。"]},
+ {cn:"我的照片被点赞了。",py:"Wǒ de zhàopiàn bèi diǎnzàn le.",ja:"私の写真はいいねを押された。",l:5,tokens:["我的","照片","被","点赞","了","。"]},
+ {cn:"你星期天会来学校吗？",py:"Nǐ xīngqītiān huì lái xuéxiào ma?",ja:"あなたは日曜日に学校に来る？",l:5,tokens:["你","星期天","会","来","学校","吗","？"]},
+ {cn:"我准备不点外卖。",py:"Wǒ zhǔnbèi bù diǎn wàimài.",ja:"私は出前を注文しないつもりだ。",l:5,tokens:["我","准备","不","点","外卖","。"]},
+ {cn:"今晚不会下雨的。",py:"Jīnwǎn bù huì xià yǔ de.",ja:"今夜は雨が降らないはずだ。",l:5,tokens:["今晚","不","会","下","雨","的","。"]},
+ {cn:"咖啡被弟弟喝完了。",py:"Kāfēi bèi dìdi hēwán le.",ja:"コーヒーは弟に飲み干された。",l:5,tokens:["咖啡","被","弟弟","喝完","了","。"]},
+ {cn:"你准备找工作吗？",py:"Nǐ zhǔnbèi zhǎo gōngzuò ma?",ja:"仕事を探すつもり？",l:5,tokens:["你","准备","找","工作","吗","？"]},
+ {cn:"山本第一次穿着古装拍照。",py:"Shānběn dì-yī cì chuānzhe gǔzhuāng pāizhào.",ja:"山本は初めて古装を着て写真を撮る。",l:5,tokens:["山本","第一次","穿","着","古装","拍照","。"]},
+ {cn:"你们怎么还没有出发？",py:"Nǐmen zěnme hái méiyou chūfā?",ja:"あなたたちはなぜまだ出発していないの？",l:5,tokens:["你们","怎么","还","没有","出发","？"]},
+ {cn:"她明天肯定会来学校的。",py:"Tā míngtiān kěndìng huì lái xuéxiào de.",ja:"彼女は明日きっと学校に来るはずだ。",l:5,tokens:["她","明天","肯定","会","来","学校","的","。"]},
+ {cn:"我的照片被很多人点赞了。",py:"Wǒ de zhàopiàn bèi hěn duō rén diǎnzàn le.",ja:"私の写真はたくさんの人にいいねを押された。",l:5,tokens:["我的","照片","被","很多","人","点赞","了","。"]},
+ {cn:"你准备什么时候回家？",py:"Nǐ zhǔnbèi shénme shíhou huí jiā?",ja:"いつ家に帰るつもり？",l:5,tokens:["你","准备","什么时候","回","家","？"]},
+ {cn:"山本发了不少照片。",py:"Shānběn fāle bùshǎo zhàopiàn.",ja:"山本はたくさんの写真を投稿した。",l:5,tokens:["山本","发","了","不少","照片","。"]},
+ {cn:"我想加几句话。",py:"Wǒ xiǎng jiā jǐ jù huà.",ja:"いくつか言葉を加えたい。",l:5,tokens:["我","想","加","几","句","话","。"]},
+ {cn:"今天太开心了！我拍了很多照片。",py:"Jīntiān tài kāixīn le! Wǒ pāile hěn duō zhàopiàn.",ja:"今日はとても楽しかった！写真をたくさん撮った。",l:5,tokens:null},
+ {cn:"我第一次穿古装拍照，感觉很新鲜。",py:"Wǒ dì-yī cì chuān gǔzhuāng pāizhào, gǎnjué hěn xīnxiān.",ja:"初めて古装を着て写真を撮って、とても新鮮に感じた。",l:5,tokens:null},
+ {cn:"回来以后，山本发了很多穿着古装的照片。",py:"Huílai yǐhòu, Shānběn fāle hěn duō chuānzhe gǔzhuāng de zhàopiàn.",ja:"戻った後、山本は古装を着た写真をたくさん投稿した。",l:5,tokens:null},
+ {cn:"他明天有课，会来学校。",py:"Tā míngtiān yǒu kè, huì lái xuéxiào.",ja:"彼は明日授業があるので、学校に来るはずだ。",l:5,tokens:null},
+
+ /* ===== 第6課 ===== */
+ {cn:"我已经买到书了。",py:"Wǒ yǐjīng mǎidào shū le.",ja:"私はもう本を手に入れた。",l:6,tokens:["我","已经","买到","书","了","。"]},
+ {cn:"饺子被弟弟吃完了。",py:"Jiǎozi bèi dìdi chīwán le.",ja:"餃子は弟に食べられてしまった。",l:6,tokens:["饺子","被","弟弟","吃完","了","。"]},
+ {cn:"他没有买到票。",py:"Tā méiyou mǎidào piào.",ja:"彼は切符が買えなかった。",l:6,tokens:["他","没有","买到","票","。"]},
+ {cn:"我越来越爱看中国的电视剧了。",py:"Wǒ yuèláiyuè ài kàn Zhōngguó de diànshìjù le.",ja:"私はますます中国のドラマを見るのが好きになった。",l:6,tokens:["我","越来越","爱","看","中国","的","电视剧","了","。"]},
+ {cn:"你最近在看什么？",py:"Nǐ zuìjìn zài kàn shénme?",ja:"最近は何を見ている？",l:6,tokens:["你","最近","在","看","什么","？"]},
+ {cn:"我在追一部古装剧。",py:"Wǒ zài zhuī yī bù gǔzhuāngjù.",ja:"私は時代劇を1本追っている。",l:6,tokens:["我","在","追","一","部","古装剧","。"]},
+ {cn:"越看越有意思。",py:"Yuè kàn yuè yǒu yìsi.",ja:"見れば見るほど面白い。",l:6,tokens:["越","看","越","有意思","。"]},
+ {cn:"是关于历史的吗？",py:"Shì guānyú lìshǐ de ma?",ja:"歴史に関するもの？",l:6,tokens:["是","关于","历史","的","吗","？"]},
+ {cn:"还有穿越的内容。",py:"Hái yǒu chuānyuè de nèiróng.",ja:"タイムスリップの内容もある。",l:6,tokens:["还","有","穿越","的","内容","。"]},
+ {cn:"你都看得懂吗？",py:"Nǐ dōu kàndedǒng ma?",ja:"全部理解して見られる？",l:6,tokens:["你","都","看得懂","吗","？"]},
+ {cn:"在哪儿可以看？",py:"Zài nǎr kěyǐ kàn?",ja:"どこで見られる？",l:6,tokens:["在","哪儿","可以","看","？"]},
+ {cn:"很多网站都应该有。",py:"Hěn duō wǎngzhàn dōu yīnggāi yǒu.",ja:"多くのサイトにあるはずだ。",l:6,tokens:["很多","网站","都","应该","有","。"]},
+ {cn:"山本越来越喜欢看中国的电视剧了。",py:"Shānběn yuèláiyuè xǐhuan kàn Zhōngguó de diànshìjù le.",ja:"山本はますます中国のドラマを見るのが好きになった。",l:6,tokens:["山本","越来越","喜欢","看","中国","的","电视剧","了","。"]},
+ {cn:"他最近在追剧。",py:"Tā zuìjìn zài zhuī jù.",ja:"彼は最近ドラマを追っている。",l:6,tokens:["他","最近","在","追剧","。"]},
+ {cn:"电视剧里的汉语实在太难了。",py:"Diànshìjù lǐ de Hànyǔ shízài tài nán le.",ja:"ドラマの中の中国語は本当に難しすぎる。",l:6,tokens:["电视剧","里","的","汉语","实在","太","难","了","。"]},
+ {cn:"李华也想看。",py:"Lǐ Huá yě xiǎng kàn.",ja:"李華も見たい。",l:6,tokens:["李华","也","想","看","。"]},
+ {cn:"天气越来越热了。",py:"Tiānqì yuèláiyuè rè le.",ja:"天気はますます暑くなった。",l:6,tokens:["天气","越来越","热","了","。"]},
+ {cn:"山本的汉语越来越流利了。",py:"Shānběn de Hànyǔ yuèláiyuè liúlì le.",ja:"山本の中国語はますます流ちょうになった。",l:6,tokens:["山本","的","汉语","越来越","流利","了","。"]},
+ {cn:"我越来越喜欢学汉语了。",py:"Wǒ yuèláiyuè xǐhuan xué Hànyǔ le.",ja:"私はますます中国語を学ぶのが好きになった。",l:6,tokens:["我","越来越","喜欢","学","汉语","了","。"]},
+ {cn:"乌龙茶越喝越好喝。",py:"Wūlóngchá yuè hē yuè hǎohē.",ja:"ウーロン茶は飲めば飲むほどおいしい。",l:6,tokens:["乌龙茶","越","喝","越","好喝","。"]},
+ {cn:"他们越玩儿越开心。",py:"Tāmen yuè wánr yuè kāixīn.",ja:"彼らは遊べば遊ぶほど楽しくなる。",l:6,tokens:["他们","越","玩儿","越","开心","。"]},
+ {cn:"老师现在应该在教室。",py:"Lǎoshī xiànzài yīnggāi zài jiàoshì.",ja:"先生は今、教室にいるはずだ。",l:6,tokens:["老师","现在","应该","在","教室","。"]},
+ {cn:"校车应该快来了。",py:"Xiàochē yīnggāi kuài lái le.",ja:"スクールバスはもうすぐ来るはずだ。",l:6,tokens:["校车","应该","快","来","了","。"]},
+ {cn:"他应该没有去过中国。",py:"Tā yīnggāi méiyou qùguo Zhōngguó.",ja:"彼は中国に行ったことがないはずだ。",l:6,tokens:["他","应该","没有","去过","中国","。"]},
+ {cn:"电车应该快来了。",py:"Diànchē yīnggāi kuài lái le.",ja:"電車はもうすぐ来るはずだ。",l:6,tokens:["电车","应该","快","来","了","。"]},
+ {cn:"我吃不完这么多菜。",py:"Wǒ chībuwán zhème duō cài.",ja:"私はこんなにたくさんの料理を食べきれない。",l:6,tokens:["我","吃","不","完","这么","多","菜","。"]},
+ {cn:"那个火锅店越来越有名了。",py:"Nàge huǒguōdiàn yuèláiyuè yǒumíng le.",ja:"あの火鍋店はますます有名になっている。",l:6,tokens:["那个","火锅店","越来越","有名","了","。"]},
+ {cn:"天气越来越冷了。",py:"Tiānqì yuèláiyuè lěng le.",ja:"天気はますます寒くなってきた。",l:6,tokens:["天气","越来越","冷","了","。"]},
+ {cn:"你今天回得来吗？",py:"Nǐ jīntiān huídelái ma?",ja:"今日、帰ってくることができる？",l:6,tokens:["你","今天","回得来","吗","？"]},
+ {cn:"他最近在追古装剧。",py:"Tā zuìjìn zài zhuī gǔzhuāngjù.",ja:"彼は最近時代劇を見ている。",l:6,tokens:["他","最近","在","追","古装剧","。"]},
+ {cn:"我越来越喜欢喝乌龙茶了。",py:"Wǒ yuèláiyuè xǐhuan hē wūlóngchá le.",ja:"私はますますウーロン茶を飲むのが好きになった。",l:6,tokens:["我","越来越","喜欢","喝","乌龙茶","了","。"]},
+ {cn:"《西游记》越看越有意思。",py:"Xīyóujì yuè kàn yuè yǒu yìsi.",ja:"『西遊記』は読めば読むほど面白い。",l:6,tokens:["《西游记》","越","看","越","有意思","。"]},
+ {cn:"是关于历史的电视剧吗？",py:"Shì guānyú lìshǐ de diànshìjù ma?",ja:"歴史に関するドラマ？",l:6,tokens:["是","关于","历史","的","电视剧","吗","？"]},
+ {cn:"有的地方看不懂。",py:"Yǒude dìfang kànbudǒng.",ja:"分からないところがある。",l:6,tokens:["有的","地方","看不懂","。"]},
+ {cn:"我在追一部古装剧，越看越有意思。",py:"Wǒ zài zhuī yī bù gǔzhuāngjù, yuè kàn yuè yǒu yìsi.",ja:"時代劇を1本追っていて、見れば見るほど面白い。",l:6,tokens:null},
+ {cn:"有的地方看得懂，有的地方看不懂。",py:"Yǒude dìfang kàndedǒng, yǒude dìfang kànbudǒng.",ja:"分かるところもあれば、分からないところもある。",l:6,tokens:null},
+ {cn:"太多了，我吃不完。",py:"Tài duō le, wǒ chībuwán.",ja:"多すぎて、食べきれない。",l:6,tokens:null},
+ {cn:"我没有钥匙，进不去。",py:"Wǒ méiyou yàoshi, jìnbuqù.",ja:"鍵がないので、入れない。",l:6,tokens:null},
+ {cn:"有的菜很辣，有的菜不太辣。",py:"Yǒude cài hěn là, yǒude cài bú tài là.",ja:"ある料理は辛いが、ある料理はあまり辛くない。",l:6,tokens:null}
+];
+
+/* ============== STATE ============== */
+let selectedLessons = new Set([4,5,6]);
+let mode = "pin";       // pin | jp | reorder | flash
+let level = "word";     // word | sentence  (for pin/jp)
+let pool = [];
+let queue = [];
+let qi = 0;
+let score = 0;
+let stampGoal = 12;
+let stampsOn = 0;
+let answered = false;
+
+const chipsEl = document.getElementById("chips");
+const stageEl = document.getElementById("stage");
+const controlsEl = document.getElementById("controls");
+const levelEl = document.getElementById("levelToggle");
+const progressEl = document.getElementById("progress");
+const scoreEl = document.getElementById("score");
+const stampStripEl = document.getElementById("stampStrip");
+const filterSegEl = document.getElementById("filterSeg");
+const badgeWeaknewEl = document.getElementById("badgeWeaknew");
+const badgeWeakEl = document.getElementById("badgeWeak");
+
+/* ============== 苦手 / 覚えた ログ（モード別） ============== */
+const WEAK_KEY = "ch_practice_weak_v2";
+const KNOWN_KEY = "ch_practice_known_v1";
+const MODE_KEYS = ["pin","jp","reorder","flash","type","types"];
+const MODE_NAMES = {pin:"拼音→中国語", jp:"日本語→中国語", reorder:"並べ替え", flash:"フラッシュカード", type:"単語タイピング", types:"文タイピング"};
+let filterMode = "all";   // all | weaknew(苦手+未) | weak(苦手のみ)
+let weakLog = {};   // mode -> { id -> {m:誤答数, s:連続正解数} }
+let knownLog = {};  // mode -> { id -> true }  ＝覚えた
+function loadWeak(){
+  try{ weakLog = JSON.parse(localStorage.getItem(WEAK_KEY)) || {}; }catch(e){ weakLog = {}; }
+  try{ knownLog = JSON.parse(localStorage.getItem(KNOWN_KEY)) || {}; }catch(e){ knownLog = {}; }
+  MODE_KEYS.forEach(k=>{
+    if(!weakLog[k] || typeof weakLog[k] !== "object") weakLog[k] = {};
+    if(!knownLog[k] || typeof knownLog[k] !== "object") knownLog[k] = {};
+  });
+}
+function saveWeak(){ try{ localStorage.setItem(WEAK_KEY, JSON.stringify(weakLog)); localStorage.setItem(KNOWN_KEY, JSON.stringify(knownLog)); }catch(e){} }
+function itemId(it){ return it.h!==undefined ? "w:"+it.h : "s:"+it.cn; }
+function isWeak(it){ const l = weakLog[mode]; return !!(l && l[itemId(it)]); }
+function isKnown(it){ const l = knownLog[mode]; return !!(l && l[itemId(it)]); }
+function setKnown(id, on){ const l = knownLog[mode] || (knownLog[mode] = {}); if(on) l[id] = true; else delete l[id]; }
+function recordResult(it, correct){
+  const wl = weakLog[mode] || (weakLog[mode] = {}); const id = itemId(it);
+  if(correct){
+    if(wl[id]){ wl[id].s = (wl[id].s||0) + 1; if(wl[id].s >= 2){ delete wl[id]; setKnown(id, true); } }  // 苦手→2連続正解で覚えた
+    else { setKnown(id, true); }                                                                        // 未→正解で覚えた
+  } else {
+    setKnown(id, false);                        // 間違えたら覚えた解除
+    if(!wl[id]) wl[id] = {m:0,s:0};
+    wl[id].m++; wl[id].s = 0;
+  }
+  saveWeak();
+  updateFilterCounts();
+}
+function markKnown(it){ const id = itemId(it); const wl = weakLog[mode]; if(wl) delete wl[id]; setKnown(id, true); saveWeak(); updateFilterCounts(); }
+function updateFilterCounts(){
+  const base = basePool();
+  if(badgeWeakEl) badgeWeakEl.textContent = base.filter(isWeak).length;
+  if(badgeWeaknewEl) badgeWeaknewEl.textContent = base.filter(it=>!isKnown(it)).length;
+}
+
+/* ---- 苦手一覧 ---- */
+const weakOverlayEl = document.getElementById("weakOverlay");
+const weakListBodyEl = document.getElementById("weakListBody");
+const weakCountEl = document.getElementById("weakCount");
+function resolveWeak(id){
+  if(id.slice(0,2)==="w:"){ const h=id.slice(2); const w=WORDS.find(x=>x.h===h); return w?{main:w.h,sub:w.p+" ・ "+w.m,l:w.l,kind:"単語"}:{main:h,sub:"",l:"?",kind:"単語"}; }
+  const cn=id.slice(2); const s=SENTENCES.find(x=>x.cn===cn); return s?{main:s.cn,sub:s.py+" ／ "+s.ja,l:s.l,kind:"文"}:{main:cn,sub:"",l:"?",kind:"文"};
+}
+function renderWeakList(){
+  const log = weakLog[mode] || {};
+  const ids = Object.keys(log);
+  const knownN = Object.keys(knownLog[mode] || {}).length;
+  weakCountEl.textContent = "／ " + MODE_NAMES[mode] + "（苦手 " + ids.length + "・覚えた " + knownN + "）";
+  if(ids.length===0){ weakListBodyEl.innerHTML = '<div class="wl-empty">この出題形式ではまだ苦手はありません 🎉<br>間違えた問題がここに集まります。</div>'; return; }
+  const rows = ids.map(id=>({id, ...resolveWeak(id), rec:log[id]}));
+  rows.sort((a,b)=> (a.l===b.l ? (b.rec.m||0)-(a.rec.m||0) : (a.l>b.l?1:-1)) );
+  let html = ""; let curL = null;
+  rows.forEach(r=>{
+    if(r.l!==curL){ curL=r.l; html += '<div class="wl-group-h">第'+curL+'課</div>'; }
+    const streak = r.rec.s||0;
+    html +=
+      '<div class="wl-row">'+
+        '<span class="wl-tag">'+r.kind+'</span>'+
+        '<div class="wl-info">'+
+          '<div class="wl-main">'+r.main+'</div>'+
+          (r.sub?'<div class="wl-sub">'+r.sub+'</div>':'')+
+          '<div class="wl-meta">誤答 '+(r.rec.m||0)+'回 ・ 卒業まであと '+(2-streak)+'回正解</div>'+
+        '</div>'+
+        '<button class="wl-del" data-id="'+encodeURIComponent(r.id)+'" title="削除">✕</button>'+
+      '</div>';
+  });
+  weakListBodyEl.innerHTML = html;
+  weakListBodyEl.querySelectorAll(".wl-del").forEach(b=>{
+    b.onclick = ()=>{ const id=decodeURIComponent(b.dataset.id); delete log[id]; saveWeak(); renderWeakList(); updateFilterCounts(); };
+  });
+}
+function openWeakList(){ renderWeakList(); weakOverlayEl.classList.add("show"); }
+function closeWeakList(){ weakOverlayEl.classList.remove("show"); rebuild(); }
+
+/* ============== UTIL ============== */
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+  return a;
+}
+function sample(arr,n,excludeFn){
+  return shuffle(arr.filter(x=>!excludeFn(x))).slice(0,n);
+}
+
+/* ============== CHIPS ============== */
+function buildChips(){
+  chipsEl.innerHTML = "";
+  [4,5,6].forEach(l=>{
+    const b = document.createElement("button");
+    b.className = "chip" + (selectedLessons.has(l) ? " on" : "");
+    b.textContent = "第" + l + "課";
+    b.onclick = ()=>{
+      if(selectedLessons.has(l)){ if(selectedLessons.size>1) selectedLessons.delete(l); }
+      else selectedLessons.add(l);
+      buildChips();
+      rebuild();
+    };
+    chipsEl.appendChild(b);
+  });
+}
+
+/* ============== POOL ============== */
+function basePool(){
+  if(mode==="reorder") return SENTENCES.filter(d=>selectedLessons.has(d.l) && d.tokens);
+  if(mode==="type") return WORDS.filter(d=>selectedLessons.has(d.l) && !/[～~]/.test(d.h));
+  if(mode==="types") return SENTENCES.filter(d=>selectedLessons.has(d.l));
+  if(mode==="flash" || level==="word") return WORDS.filter(d=>selectedLessons.has(d.l));
+  return SENTENCES.filter(d=>selectedLessons.has(d.l));
+}
+function applyFilter(p){
+  if(filterMode==="weak") return p.filter(isWeak);
+  if(filterMode==="weaknew") return p.filter(it=>!isKnown(it));   // 苦手＋未（覚えた以外）
+  return p;
+}
+function rebuild(){
+  pool = applyFilter(basePool());
+  queue = shuffle(pool);
+  qi = 0; score = 0; stampsOn = 0;
+  stampGoal = Math.min(12, Math.max(1,pool.length));
+  buildStampStrip();
+  updateScore();
+  updateFilterCounts();
+  render();
+}
+
+function buildStampStrip(){
+  stampStripEl.innerHTML = "";
+  for(let i=0;i<stampGoal;i++){const d=document.createElement("div");d.className="dot";stampStripEl.appendChild(d);}
+}
+function lightStamp(){
+  const dots = stampStripEl.children;
+  const idx = stampsOn % stampGoal;
+  if(dots[idx]) dots[idx].classList.add("on");
+  stampsOn++;
+}
+function updateScore(){
+  progressEl.textContent = (pool.length? (qi % pool.length) : 0) + " / " + pool.length;
+  scoreEl.textContent = score;
+}
+function current(){ return queue.length ? queue[qi % queue.length] : null; }
+function advance(){
+  qi++;
+  if(pool.length && qi % pool.length === 0){ pool = applyFilter(basePool()); queue = shuffle(pool); qi = 0; }  // 周回ごとに再計算＝覚えた語が抜ける
+  render();
+}
+
+/* ============== RENDER DISPATCH ============== */
+let activeKeyHandler = null;
+function setKeyHandler(fn){
+  if(activeKeyHandler){ document.removeEventListener("keydown", activeKeyHandler); activeKeyHandler = null; }
+  if(fn){ activeKeyHandler = fn; document.addEventListener("keydown", fn); }
+}
+function render(){
+  answered = false;
+  setKeyHandler(null);
+  levelEl.classList.toggle("hidden", mode==="reorder" || mode==="flash" || mode==="type" || mode==="types");
+  stageEl.innerHTML = "";
+  controlsEl.innerHTML = "";
+  const item = current();
+  if(!item){
+    let msg;
+    if(filterMode==="weak") msg = '🎉 この形式に苦手はありません。<br>フィルターを「すべて」に戻そう。';
+    else if(filterMode==="weaknew") msg = '🎉 全部「覚えた」！苦手・未学習は残っていません。<br>フィルターを「すべて」に戻せます。';
+    else msg = 'この範囲に問題がありません。<br>課を選び直してください。';
+    stageEl.innerHTML = '<div class="empty-note">'+msg+'</div>';
+    updateScore(); return;
+  }
+  updateScore();
+  if(mode==="flash") renderFlash(item);
+  else if(mode==="reorder") renderReorder(item);
+  else if(mode==="type") renderType(item);
+  else if(mode==="types") renderTypeSentence(item);
+  else renderQuiz(item);
+}
+
+/* ============== FLASHCARD ============== */
+function renderFlash(item){
+  const card = document.createElement("div");
+  card.className = "card clickable";
+  card.innerHTML =
+    '<div class="lesson-tag">第'+item.l+'課</div>'+
+    '<div class="face front"><div class="hanzi">'+item.h+'</div><div class="hint">タップして裏返す</div></div>'+
+    '<div class="face back"><div class="pinyin">'+item.p+'</div><div class="meaning">'+item.m+'</div></div>';
+  let flipped=false;
+  card.onclick = ()=>{ flipped=!flipped; card.classList.toggle("flipped",flipped); };
+  stageEl.appendChild(card);
+
+  const again = mkBtn("もう一度","btn ghost",()=>{ recordResult(item,false); const it=queue[qi%queue.length]; queue.splice((qi%queue.length)+1,0,it); qi++; render(); });
+  const known = mkBtn("覚えた 👍","btn primary",()=>{ markKnown(item); score++; lightStamp(); updateScore(); setTimeout(advance,250); });
+  controlsEl.append(again,known);
+}
+
+/* ============== TYPING (意味 → 入力, 暗記用: 単語 / 文 共通) ============== */
+const normWord = s => (s||"").replace(/\s+/g,"");
+const normSentence = s => (s||"").replace(/[\s。，、！？；：·…—～~"“”‘’（）()《》〈〉「」『』.,!?;:]/g,"");
+function renderType(item){ renderTyping(item, {label:"意味 → 中国語入力", prompt:item.m, answer:item.h, solMain:item.h, solPy:item.p, placeholder:"簡体字を入力", norm:normWord}); }
+function renderTypeSentence(item){ renderTyping(item, {label:"意味 → 文を入力", prompt:item.ja, answer:item.cn, solMain:item.cn, solPy:item.py, placeholder:"簡体字で文を入力（句読点は省略可）", norm:normSentence}); }
+
+function renderTyping(item, cfg){
+  const card = document.createElement("div");
+  card.className = "card";
+  card.innerHTML =
+    '<div class="lesson-tag">第'+item.l+'課</div>'+
+    '<div class="prompt-label">'+cfg.label+'</div>'+
+    '<div class="face" style="position:relative;">'+
+      '<div class="jp-prompt">'+cfg.prompt+'</div>'+
+      '<input class="type-input" id="typeInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="'+cfg.placeholder+'">'+
+      '<div class="type-feedback" id="typeFb"></div>'+
+      '<div class="type-solution" id="typeSol"><div class="s-cn">'+cfg.solMain+'</div><div class="s-py">'+cfg.solPy+'</div></div>'+
+    '</div>';
+  stageEl.appendChild(card);
+
+  const input = card.querySelector("#typeInput");
+  const fb = card.querySelector("#typeFb");
+  const sol = card.querySelector("#typeSol");
+  let wrongAttempt = false, done = false, composing = false;
+  const target = cfg.norm(cfg.answer);
+
+  input.addEventListener("compositionstart", ()=>composing=true);
+  input.addEventListener("compositionend", ()=>composing=false);
+
+  function submit(){
+    if(done) return;
+    const val = cfg.norm(input.value);
+    if(!val) return;
+    if(val === target){
+      done = true;
+      input.classList.remove("ng"); input.classList.add("ok"); input.disabled = true;
+      const clean = !wrongAttempt;
+      if(clean){ score++; lightStamp(); recordResult(item, true); }  // ノーミス正解のみ加点・卒業カウント
+      updateScore();
+      sol.classList.add("show");
+      fb.textContent = clean ? "正解！🎉" : "正解！（次はノーミスを狙おう）";
+      fb.style.color = "var(--jade-dark)";
+      controlsEl.innerHTML = "";
+      const nb = mkBtn("次へ","btn next",advance);
+      controlsEl.append(nb);
+      setTimeout(()=>nb.focus(), 0);
+    } else {
+      if(!wrongAttempt){ wrongAttempt = true; recordResult(item, false); }  // 初回ミスで苦手登録
+      input.classList.add("ng");
+      card.classList.add("shake"); setTimeout(()=>card.classList.remove("shake"), 400);
+      fb.textContent = "ちがうよ、もう一度！";
+      fb.style.color = "var(--seal-dark)";
+      input.select();
+    }
+  }
+
+  function skip(){
+    if(done) return;
+    done = true;
+    if(!wrongAttempt){ recordResult(item, false); }  // 分からず飛ばした → 苦手に登録
+    input.disabled = true; input.classList.remove("ok");
+    sol.classList.add("show");
+    fb.textContent = "スキップ（苦手に登録）";
+    fb.style.color = "var(--muted)";
+    controlsEl.innerHTML = "";
+    const nb = mkBtn("次へ","btn next",advance);
+    controlsEl.append(nb);
+    setTimeout(()=>nb.focus(), 0);
+  }
+
+  input.addEventListener("keydown", (e)=>{
+    if(e.key === "Enter" && !e.isComposing && !composing){ e.preventDefault(); submit(); }
+  });
+  controlsEl.innerHTML = "";
+  controlsEl.append(mkBtn("確認","btn primary",submit), mkBtn("スキップ","btn ghost",skip));
+  setTimeout(()=>input.focus(), 0);
+}
+
+/* ============== QUIZ (pin / jp, word / sentence) ============== */
+function renderQuiz(item){
+  const isWord = level==="word";
+  const card = document.createElement("div");
+  card.className = "card";
+  const label = mode==="pin" ? "拼音 → 中国語" : "日本語 → 中国語";
+  let promptHtml;
+  if(mode==="pin"){
+    promptHtml = isWord ? '<div class="pinyin">'+item.p+'</div>' : '<div class="prompt-py">'+item.py+'</div>';
+  } else {
+    promptHtml = '<div class="jp-prompt">'+ (isWord? item.m : item.ja) +'</div>';
+  }
+  card.innerHTML =
+    '<div class="lesson-tag">第'+item.l+'課</div>'+
+    '<div class="prompt-label">'+label+'</div>'+
+    '<div class="face" style="position:relative;">'+promptHtml+
+      '<div class="choices" id="choices"></div>'+
+    '</div>';
+  stageEl.appendChild(card);
+
+  const correct = isWord ? item.h : item.cn;
+  const key = isWord ? "h" : "cn";
+  const distractors = sample(pool, 3, d=> d[key]===correct).map(d=>d[key]);
+  const options = shuffle([correct, ...distractors]);
+  const choicesEl = card.querySelector("#choices");
+  options.forEach((opt,i)=>{
+    const b = document.createElement("button");
+    b.className = "choice";
+    b.dataset.opt = opt;
+    b.innerHTML = '<span class="num">'+(i+1)+'</span><span class="opt-text"></span>';
+    b.querySelector(".opt-text").textContent = opt;
+    b.onclick = ()=>selectChoice(b, opt, correct, choicesEl, card, item);
+    choicesEl.appendChild(b);
+  });
+  // キーボード操作: 1〜4で選択、回答後は Enter / → / Space で次へ
+  setKeyHandler((e)=>{
+    if(e.isComposing) return;
+    if(!answered){
+      const n = parseInt(e.key,10);
+      if(n>=1 && n<=options.length){ e.preventDefault(); const b=choicesEl.children[n-1]; selectChoice(b, b.dataset.opt, correct, choicesEl, card, item); }
+    } else if(e.key==="Enter" || e.key===" " || e.key==="ArrowRight"){ e.preventDefault(); advance(); }
+  });
+}
+
+function selectChoice(btn, chosen, correct, choicesEl, card, item){
+  if(answered) return;
+  answered = true;
+  choicesEl.querySelectorAll(".choice").forEach(b=>{
+    if(b.dataset.opt===correct) b.classList.add("correct");
+    else b.classList.add("dim");
+  });
+  if(chosen===correct){ score++; lightStamp(); }
+  else{ btn.classList.remove("dim"); btn.classList.add("wrong"); card.classList.add("shake"); setTimeout(()=>card.classList.remove("shake"),400); }
+  recordResult(item, chosen===correct);
+  updateScore();
+  const next = mkBtn("次へ","btn next",advance);
+  controlsEl.innerHTML="";
+  controlsEl.append(next);
+}
+
+/* ============== REORDER (tiles) ============== */
+function renderReorder(item){
+  const tokens = item.tokens;
+  const wrap = document.createElement("div");
+
+  const prompt = document.createElement("div");
+  prompt.className="reorder-prompt";
+  prompt.innerHTML = '<div class="lesson-tag">第'+item.l+'課</div><div class="reorder-ja">'+item.ja+'</div>';
+
+  const answer = document.createElement("div");
+  answer.className="reorder-answer empty";
+
+  const bank = document.createElement("div");
+  bank.className="reorder-bank";
+
+  const solution = document.createElement("div");
+  solution.className="reorder-solution";
+  solution.innerHTML = '<div class="sol-cn">'+item.cn+'</div><div class="sol-py">'+item.py+'</div>';
+
+  wrap.append(prompt, answer, bank, solution);
+  stageEl.appendChild(wrap);
+
+  const order = shuffle(tokens.map((t,i)=>({t,i})));
+  // ensure not already in correct order
+  if(order.map(o=>o.t).join("")===tokens.join("") && tokens.length>1){ order.push(order.shift()); }
+
+  function syncEmpty(){ answer.classList.toggle("empty", answer.children.length===0); }
+
+  order.forEach(o=>{
+    const tile = document.createElement("button");
+    tile.className="tile";
+    tile.textContent=o.t;
+    tile.onclick=()=>{
+      if(answered) return;
+      if(tile.parentElement===bank){ tile.classList.add("in-answer"); answer.appendChild(tile); }
+      else { tile.classList.remove("in-answer"); bank.appendChild(tile); }
+      syncEmpty();
+    };
+    bank.appendChild(tile);
+  });
+  syncEmpty();
+
+  const check = mkBtn("確認","btn primary",()=>{
+    if(answered) return;
+    const built = Array.from(answer.children).map(c=>c.textContent).join("");
+    const correct = tokens.join("");
+    answered = true;
+    if(built===correct){ answer.classList.add("ok"); score++; lightStamp(); }
+    else { answer.classList.add("ng"); wrap.classList.add("shake"); setTimeout(()=>wrap.classList.remove("shake"),400); }
+    recordResult(item, built===correct);
+    solution.classList.add("show");
+    updateScore();
+    controlsEl.innerHTML="";
+    controlsEl.append(mkBtn("次へ","btn next",advance));
+  });
+  const reset = mkBtn("リセット","btn ghost",()=>{
+    if(answered) return;
+    Array.from(answer.children).forEach(c=>{ c.classList.remove("in-answer"); bank.appendChild(c); });
+    syncEmpty();
+  });
+  controlsEl.append(reset, check);
+}
+
+/* ============== helpers ============== */
+function mkBtn(text,cls,fn){ const b=document.createElement("button"); b.className=cls; b.textContent=text; b.onclick=fn; return b; }
+
+/* ============== MODE / LEVEL SWITCH ============== */
+document.querySelectorAll(".modes button").forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll(".modes button").forEach(x=>x.classList.remove("active"));
+    b.classList.add("active");
+    mode = b.dataset.mode;
+    rebuild();
+  };
+});
+document.querySelectorAll(".level button").forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll(".level button").forEach(x=>x.classList.remove("on"));
+    b.classList.add("on");
+    level = b.dataset.level;
+    rebuild();
+  };
+});
+
+filterSegEl.querySelectorAll("button").forEach(b=>{
+  b.onclick = ()=>{
+    filterSegEl.querySelectorAll("button").forEach(x=>x.classList.remove("on"));
+    b.classList.add("on");
+    filterMode = b.dataset.filter;
+    rebuild();
+  };
+});
+document.getElementById("weakListBtn").onclick = openWeakList;
+document.getElementById("weakClose").onclick = closeWeakList;
+weakOverlayEl.onclick = (e)=>{ if(e.target===weakOverlayEl) closeWeakList(); };
+document.getElementById("weakClearAll").onclick = ()=>{
+  if(confirm("この出題形式（"+MODE_NAMES[mode]+"）の苦手をリセットしますか？")){ weakLog[mode] = {}; saveWeak(); renderWeakList(); updateFilterCounts(); }
+};
+document.getElementById("weakClearKnown").onclick = ()=>{
+  if(confirm("この出題形式（"+MODE_NAMES[mode]+"）の覚えたをリセットしますか？")){ knownLog[mode] = {}; saveWeak(); renderWeakList(); updateFilterCounts(); }
+};
+
+/* ============== INIT ============== */
+loadWeak();
+buildChips();
+rebuild();
+</script>
+</body>
+</html>

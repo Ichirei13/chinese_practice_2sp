@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HSK4 Practice — Chinese Learning App</title>
+  <meta name="description" content="HSK4級の単語と文法を様々なモードで効率よく学習できるアプリ。" />
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="app-nav">
+  <div class="nav-logo">
+    <span>汉</span> HSK4 Practice V3.5
+  </div>
+  <div class="nav-actions">
+    <button class="btn btn-ghost btn-icon" id="btn-dashboard" title="ダッシュボード">📊</button>
+    <button class="btn btn-ghost btn-icon" id="btn-home-nav" title="ホームへ">🏠</button>
+    <button class="btn btn-ghost btn-icon" id="btn-theme" title="テーマ切替">🌙</button>
+  </div>
+</nav>
+
+<!-- HOME -->
+<section class="screen active" id="screen-home">
+  <div class="container">
+
+    <div class="hero">
+      <div class="hero-emoji">🀄</div>
+      <h1>HSK4 Practice</h1>
+      <p class="subtitle">単語から文章まで、試験対策を完璧に！</p>
+
+      <div class="stats-row" id="home-stats">
+        <div class="stat-card">
+          <div class="stat-value" id="stat-total-studied">0</div>
+          <div class="stat-label">学習済み単語</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="stat-accuracy">—</div>
+          <div class="stat-label">総合正答率</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="stat-streak">🔥 0</div>
+          <div class="stat-label">連続学習日</div>
+        </div>
+      </div>
+      
+      <!-- Quick Retry Shortcut -->
+      <button class="btn btn-secondary" id="btn-quick-retry" style="display:none; margin: 0 auto 30px; border-color:var(--red); color:var(--red)">
+        📌 苦手な問題だけを復習する
+      </button>
+    </div>
+
+    <!-- Mode Selection -->
+    <div class="mode-section">
+      <h2 style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;">単語テストモード</h2>
+      <div class="mode-grid">
+        <div class="mode-card selected" data-mode="pinyin" style="--mode-color:#6c63ff">
+          <span class="mode-icon">⌨️</span>
+          <div class="mode-title">ピンイン入力</div>
+          <div class="mode-desc">漢字を見てピンインを入力</div>
+        </div>
+        <div class="mode-card" data-mode="meaning" style="--mode-color:#22d87a">
+          <span class="mode-icon">📝</span>
+          <div class="mode-title">意味クイズ</div>
+          <div class="mode-desc">意味を4択で答える</div>
+        </div>
+        <div class="mode-card" data-mode="hanzi" style="--mode-color:#fbbf24">
+          <span class="mode-icon">🔤</span>
+          <div class="mode-title">漢字クイズ</div>
+          <div class="mode-desc">正しい漢字を4択で答える</div>
+        </div>
+        <div class="mode-card" data-mode="listening" style="--mode-color:#38bdf8">
+          <span class="mode-icon">👂</span>
+          <div class="mode-title">リスニング</div>
+          <div class="mode-desc">音声を聞いてピンインを入力</div>
+        </div>
+        <div class="mode-card" data-mode="vocab_full" style="--mode-color:#ff5f5f">
+          <span class="mode-icon">✍️</span>
+          <div class="mode-title">フル単語テスト</div>
+          <div class="mode-desc">漢字とピンインを両方入力</div>
+        </div>
+      </div>
+
+      <h2 style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;margin-top:18px;">文章・文法モード</h2>
+      <div class="mode-grid">
+        <div class="mode-card" data-mode="rearrange" style="--mode-color:#8b5cf6">
+          <span class="mode-icon">🔀</span>
+          <div class="mode-title">並び替え</div>
+          <div class="mode-desc">単語を正しい語順に並び替える</div>
+        </div>
+        <div class="mode-card" data-mode="fillin" style="--mode-color:#10b981">
+          <span class="mode-icon">🧩</span>
+          <div class="mode-title">穴埋め</div>
+          <div class="mode-desc">空欄に当てはまる単語を選ぶ</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar: Settings + Start -->
+    <div class="sidebar">
+      <!-- Settings -->
+      <div class="settings-panel">
+        <h3>⚙️ 設定</h3>
+
+        <div class="setting-row">
+          <div>
+            <div class="setting-label">出題数</div>
+            <div class="setting-desc">1セッションで出す問題数</div>
+          </div>
+          <div class="setting-control">
+            <select class="select" id="setting-count" style="min-width:100px">
+              <option value="10">10問</option>
+              <option value="20" selected>20問</option>
+              <option value="30">30問</option>
+              <option value="50">50問</option>
+              <option value="all">全問</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="setting-row">
+          <div>
+            <div class="setting-label">苦手優先</div>
+            <div class="setting-desc">間違えた問題を優先して出題</div>
+          </div>
+          <div class="setting-control">
+            <div class="toggle on" id="toggle-weak" role="switch" aria-checked="true"></div>
+          </div>
+        </div>
+
+        <div class="setting-row">
+          <div>
+            <div class="setting-label">範囲 (ア～Z)</div>
+            <div class="setting-desc">単語モード用の絞り込み</div>
+          </div>
+          <div class="setting-control">
+            <select class="select" id="setting-range" style="min-width:100px">
+              <option value="all" selected>すべて</option>
+              <option value="a-f">A〜F</option>
+              <option value="g-l">G〜L</option>
+              <option value="m-r">M〜R</option>
+              <option value="s-z">S〜Z</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="setting-row">
+          <div>
+            <div class="setting-label">範囲 (タグ)</div>
+            <div class="setting-desc">文章モード用の絞り込み</div>
+          </div>
+          <div class="setting-control">
+            <select class="select" id="setting-tag" style="min-width:100px">
+              <option value="all" selected>すべて</option>
+              <option value="第1課">第1課</option>
+              <option value="第2課">第2課</option>
+              <option value="第3課">第3課</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary btn-lg" id="btn-start" style="width:100%">
+        🚀 スタート！
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section class="screen" id="screen-quiz">
+  <div class="container">
+
+    <!-- Header -->
+    <div class="quiz-header">
+      <button class="btn btn-ghost btn-sm" id="btn-quit">← 終了</button>
+      <div class="progress-bar" style="flex:1">
+        <div class="progress-fill" id="quiz-progress" style="width:0%"></div>
+      </div>
+      <span class="question-counter" id="quiz-counter">1 / 20</span>
+      <span class="badge badge-accent" id="quiz-mode-badge">ピンイン</span>
+    </div>
+
+    <!-- Word Card -->
+    <div class="word-card" id="word-card">
+      <div class="chinese-char" id="display-char">—</div>
+      <div class="word-meaning" id="display-meaning"></div>
+      <div class="word-pinyin-hint" id="display-pinyin-hint"></div>
+      
+      <!-- Fillin display -->
+      <div class="fillin-sentence" id="display-fillin" style="display:none"></div>
+
+      <button class="btn-listen" id="btn-listen-inline" style="display:none">
+        🔊 発音を聞く
+      </button>
+    </div>
+
+    <!-- Listening Mode -->
+    <div class="listening-area" id="listening-area" style="display:none">
+      <button class="big-listen-btn" id="btn-listen-big">🔊</button>
+      <div style="font-size:0.85rem;color:var(--text-secondary)">クリックして音声を再生</div>
+    </div>
+
+    <!-- Pinyin Input -->
+    <div class="answer-area" id="pinyin-area">
+      <div class="input-wrapper">
+        <input class="input" type="text" id="pinyin-input" placeholder="ピンインを入力" autocomplete="off" spellcheck="false" />
+        <span class="input-status" id="input-status"></span>
+      </div>
+    </div>
+
+    <!-- Vocab Full Input -->
+    <div class="answer-area" id="vocab-full-area" style="display:none">
+      <div class="input-wrapper" style="margin-bottom:12px">
+        <input class="input" type="text" id="vocab-pinyin-input" placeholder="ピンインを入力（声調記号あり）" autocomplete="off" spellcheck="false" />
+      </div>
+      <div class="input-wrapper">
+        <input class="input" type="text" id="vocab-hanzi-input" placeholder="漢字を入力" autocomplete="off" spellcheck="false" />
+      </div>
+      <button class="btn btn-primary" id="btn-vocab-submit" style="width:100%;margin-top:16px;">確認</button>
+    </div>
+
+    <!-- Multiple Choice -->
+    <div class="choices-grid" id="choices-area" style="display:none">
+      <button class="choice-btn" id="choice-0" data-index="0">
+        <span class="choice-label">A</span>
+        <div><div class="choice-text" id="choice-text-0"></div><div class="choice-pinyin" id="choice-pinyin-0"></div></div>
+      </button>
+      <button class="choice-btn" id="choice-1" data-index="1">
+        <span class="choice-label">B</span>
+        <div><div class="choice-text" id="choice-text-1"></div><div class="choice-pinyin" id="choice-pinyin-1"></div></div>
+      </button>
+      <button class="choice-btn" id="choice-2" data-index="2">
+        <span class="choice-label">C</span>
+        <div><div class="choice-text" id="choice-text-2"></div><div class="choice-pinyin" id="choice-pinyin-2"></div></div>
+      </button>
+      <button class="choice-btn" id="choice-3" data-index="3">
+        <span class="choice-label">D</span>
+        <div><div class="choice-text" id="choice-text-3"></div><div class="choice-pinyin" id="choice-pinyin-3"></div></div>
+      </button>
+    </div>
+
+    <!-- Rearrange -->
+    <div id="rearrange-area" style="display:none; text-align:center; margin-bottom: 20px;">
+      <div style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:8px">⬇ 単語をタップして並べよう</div>
+      <div class="answer-zone" id="answer-zone"></div>
+      <div style="font-size:0.85rem;color:var(--text-secondary);margin:16px 0 8px">⬆ 使える単語</div>
+      <div class="word-bank" id="word-bank"></div>
+      <button class="btn btn-primary" id="btn-rearrange-submit" style="width:100%;margin-top:16px;">確認</button>
+    </div>
+
+    <!-- Fillin Options -->
+    <div id="fillin-options-area" style="display:none; text-align:center; margin-bottom: 20px;">
+      <div class="fillin-options" id="fillin-options"></div>
+    </div>
+
+    <div class="feedback-text" id="feedback-text"></div>
+
+    <!-- Footer -->
+    <div class="quiz-footer">
+      <div style="font-size:0.8rem;color:var(--text-secondary)" id="wrong-tally">❌ 0 ミス</div>
+      <button class="btn btn-primary" id="btn-next" style="display:none">次へ →</button>
+      <button class="btn btn-secondary btn-sm" id="btn-skip">スキップ</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- RESULT -->
+<section class="screen" id="screen-result">
+  <div class="container">
+    <div class="result-hero">
+      <div class="result-emoji" id="result-emoji">🎉</div>
+      <h2 id="result-title">お疲れ様！</h2>
+      <div class="score-display" id="result-score">85%</div>
+      <p style="color:var(--text-secondary);margin-bottom:24px" id="result-subtitle">20問中17問正解</p>
+
+      <div class="result-stats">
+        <div class="stat-card">
+          <div class="stat-value" id="res-correct" style="color:var(--green)">17</div>
+          <div class="stat-label">正解</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="res-wrong" style="color:var(--red)">3</div>
+          <div class="stat-label">不正解</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="res-time">2:34</div>
+          <div class="stat-label">タイム</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrong-words-list" id="wrong-words-section">
+      <h3>📌 間違えた問題（復習用）</h3>
+      <div id="wrong-words-container"></div>
+    </div>
+
+    <div class="result-actions">
+      <button class="btn btn-primary btn-lg" id="btn-retry">🔄 もう一度</button>
+      <button class="btn btn-secondary" id="btn-retry-wrong">❌ 間違いだけ再挑戦</button>
+      <button class="btn btn-secondary" id="btn-result-home">🏠 ホームへ</button>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section class="screen" id="screen-dashboard">
+  <div class="container">
+    <h2>📊 学習ダッシュボード</h2>
+    <p class="subtitle">あなたの学習状況の詳細です</p>
+
+    <div class="dashboard-grid">
+
+      <div class="card">
+        <div class="metric-big" id="db-accuracy">—</div>
+        <div class="metric-label">総合正答率</div>
+        <div class="progress-bar">
+          <div class="progress-fill green" id="db-accuracy-bar" style="width:0%"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="streak-display">
+          <div class="streak-num" id="db-streak">0</div>
+          <div>
+            <div style="font-weight:700">日連続</div>
+            <div style="font-size:0.8rem;color:var(--text-secondary)">学習ストリーク 🔥</div>
+          </div>
+        </div>
+        <hr class="divider">
+        <div style="font-size:0.85rem;color:var(--text-secondary)">総セッション数: <strong id="db-sessions">0</strong></div>
+      </div>
+
+      <div class="card card-full">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+          <div style="font-size:0.9rem;font-weight:600">問題別習得率</div>
+          <div style="display:flex;gap:8px">
+            <button class="btn btn-secondary btn-sm" id="db-filter-all">すべて</button>
+            <button class="btn btn-secondary btn-sm" id="db-filter-weak">苦手のみ</button>
+            <button class="btn btn-secondary btn-sm" id="db-filter-mastered">習得済み</button>
+          </div>
+        </div>
+        <div class="mastery-list" id="mastery-list"></div>
+      </div>
+
+    </div>
+
+    <div style="text-align:center;margin-top:8px">
+      <button class="btn btn-secondary" id="btn-reset-data" style="color:var(--red);border-color:var(--red)">
+        🗑️ 学習データをリセット
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<script src="app.js"></script>
+</body>
+</html>

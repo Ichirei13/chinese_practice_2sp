@@ -1,0 +1,332 @@
+{
+  "故宫": {
+    "pinyin": "gugong",
+    "display_pinyin": "gùgōng",
+    "meaning": "故宮（こきゅう）"
+  },
+  "准备": {
+    "pinyin": "zhunbei",
+    "display_pinyin": "zhǔnbèi",
+    "meaning": "準備する"
+  },
+  "好": {
+    "pinyin": "hao",
+    "display_pinyin": "hǎo",
+    "meaning": "ちゃんと（結果補語「~好」）"
+  },
+  "当然": {
+    "pinyin": "dangran",
+    "display_pinyin": "dāngrán",
+    "meaning": "もちろん"
+  },
+  "这么": {
+    "pinyin": "zheme",
+    "display_pinyin": "zhème",
+    "meaning": "こんなに"
+  },
+  "一直": {
+    "pinyin": "yizhi",
+    "display_pinyin": "yìzhí",
+    "meaning": "ずっと"
+  },
+  "年轻人": {
+    "pinyin": "nianqingren",
+    "display_pinyin": "niánqīngrén",
+    "meaning": "若者"
+  },
+  "穿": {
+    "pinyin": "chuan",
+    "display_pinyin": "chuān",
+    "meaning": "着る"
+  },
+  "着": {
+    "pinyin": "zhe",
+    "display_pinyin": "zhe",
+    "meaning": "〜している（動作の持続）"
+  },
+  "古装": {
+    "pinyin": "guzhuang",
+    "display_pinyin": "gǔzhuāng",
+    "meaning": "古代の衣装（時代劇の衣装）"
+  },
+  "拍": {
+    "pinyin": "pai",
+    "display_pinyin": "pāi",
+    "meaning": "撮る"
+  },
+  "租": {
+    "pinyin": "zu",
+    "display_pinyin": "zū",
+    "meaning": "(家や車を)賃貸する"
+  },
+  "套": {
+    "pinyin": "tao",
+    "display_pinyin": "tào",
+    "meaning": "セット（服などを数える量詞）"
+  },
+  "机会": {
+    "pinyin": "jihui",
+    "display_pinyin": "jīhuì",
+    "meaning": "機会"
+  },
+  "晚饭": {
+    "pinyin": "wanfan",
+    "display_pinyin": "wǎnfàn",
+    "meaning": "晩ご飯"
+  },
+  "拿": {
+    "pinyin": "na",
+    "display_pinyin": "ná",
+    "meaning": "持つ"
+  },
+  "站": {
+    "pinyin": "zhan",
+    "display_pinyin": "zhàn",
+    "meaning": "立つ"
+  },
+  "听": {
+    "pinyin": "ting",
+    "display_pinyin": "tīng",
+    "meaning": "聞く"
+  },
+  "音乐": {
+    "pinyin": "yinyue",
+    "display_pinyin": "yīnyuè",
+    "meaning": "音楽"
+  },
+  "找": {
+    "pinyin": "zhao",
+    "display_pinyin": "zhǎo",
+    "meaning": "探す"
+  },
+  "看到": {
+    "pinyin": "kandao",
+    "display_pinyin": "kàndào",
+    "meaning": "見かける"
+  },
+  "找到": {
+    "pinyin": "zhaodao",
+    "display_pinyin": "zhǎodào",
+    "meaning": "見つける"
+  },
+  "听到": {
+    "pinyin": "tingdao",
+    "display_pinyin": "tīngdào",
+    "meaning": "聞こえる"
+  },
+  "体验": {
+    "pinyin": "tiyan",
+    "display_pinyin": "tǐyàn",
+    "meaning": "体験する"
+  },
+  "网上": {
+    "pinyin": "wangshang",
+    "display_pinyin": "wǎngshàng",
+    "meaning": "ネット上"
+  },
+  "报名": {
+    "pinyin": "baoming",
+    "display_pinyin": "bàomíng",
+    "meaning": "申し込む、応募する"
+  },
+  "麻烦": {
+    "pinyin": "mafan",
+    "display_pinyin": "máfan",
+    "meaning": "煩わしい、面倒である"
+  },
+  "分享": {
+    "pinyin": "fenxiang",
+    "display_pinyin": "fēnxiǎng",
+    "meaning": "シェアする"
+  },
+  "链接": {
+    "pinyin": "lianjie",
+    "display_pinyin": "liànjiē",
+    "meaning": "リンク"
+  },
+  "演唱会": {
+    "pinyin": "yanchanghui",
+    "display_pinyin": "yǎnchànghuì",
+    "meaning": "コンサート"
+  },
+  "发": {
+    "pinyin": "fa",
+    "display_pinyin": "fā",
+    "meaning": "送る、出す（发短信）"
+  },
+  "志愿者": {
+    "pinyin": "zhiyuanzhe",
+    "display_pinyin": "zhìyuànzhě",
+    "meaning": "ボランティア"
+  },
+  "点赞": {
+    "pinyin": "dianzan",
+    "display_pinyin": "diǎnzàn",
+    "meaning": "「いいね」をする"
+  },
+  "借": {
+    "pinyin": "jie",
+    "display_pinyin": "jiè",
+    "meaning": "借りる"
+  },
+  "钱包": {
+    "pinyin": "qianbao",
+    "display_pinyin": "qiánbāo",
+    "meaning": "財布"
+  },
+  "偷": {
+    "pinyin": "tou",
+    "display_pinyin": "tōu",
+    "meaning": "盗む"
+  },
+  "字典": {
+    "pinyin": "zidian",
+    "display_pinyin": "zìdiǎn",
+    "meaning": "漢字辞典（字書）"
+  },
+  "拿走": {
+    "pinyin": "nazou",
+    "display_pinyin": "názǒu",
+    "meaning": "持っていく"
+  },
+  "叫": {
+    "pinyin": "jiao",
+    "display_pinyin": "jiào",
+    "meaning": "〜させる／〜される（使役・受身、口語）"
+  },
+  "让": {
+    "pinyin": "rang",
+    "display_pinyin": "ràng",
+    "meaning": "〜させる（使役）"
+  },
+  "被": {
+    "pinyin": "bei",
+    "display_pinyin": "bèi",
+    "meaning": "〜される"
+  },
+  "追剧": {
+    "pinyin": "zhuiju",
+    "display_pinyin": "zhuījù",
+    "meaning": "ドラマを（見逃さずに）追う"
+  },
+  "越来越": {
+    "pinyin": "yuelaiyue",
+    "display_pinyin": "yuèláiyuè",
+    "meaning": "ますます〜"
+  },
+  "爱": {
+    "pinyin": "ai",
+    "display_pinyin": "ài",
+    "meaning": "〜するのを好む"
+  },
+  "追": {
+    "pinyin": "zhui",
+    "display_pinyin": "zhuī",
+    "meaning": "追う、追いかける"
+  },
+  "电视剧": {
+    "pinyin": "dianshiju",
+    "display_pinyin": "diànshìjù",
+    "meaning": "ドラマ"
+  },
+  "部": {
+    "pinyin": "bu",
+    "display_pinyin": "bù",
+    "meaning": "〜本（ドラマなどを数える量詞）"
+  },
+  "古装剧": {
+    "pinyin": "guzhuangju",
+    "display_pinyin": "gǔzhuāngjù",
+    "meaning": "時代劇"
+  },
+  "越…越…": {
+    "pinyin": "yueyue",
+    "display_pinyin": "yuè…yuè…",
+    "meaning": "〜すればするほど〜"
+  },
+  "有意思": {
+    "pinyin": "youyisi",
+    "display_pinyin": "yǒuyìsi",
+    "meaning": "面白い"
+  },
+  "关于": {
+    "pinyin": "guanyu",
+    "display_pinyin": "guānyú",
+    "meaning": "〜に関する"
+  },
+  "历史": {
+    "pinyin": "lishi",
+    "display_pinyin": "lìshǐ",
+    "meaning": "歴史"
+  },
+  "内容": {
+    "pinyin": "neirong",
+    "display_pinyin": "nèiróng",
+    "meaning": "内容、コンテンツ"
+  },
+  "懂": {
+    "pinyin": "dong",
+    "display_pinyin": "dǒng",
+    "meaning": "分かる、理解する（口語）"
+  },
+  "有的": {
+    "pinyin": "youde",
+    "display_pinyin": "yǒude",
+    "meaning": "ある〜、あるもの"
+  },
+  "地方": {
+    "pinyin": "difang",
+    "display_pinyin": "dìfang",
+    "meaning": "ところ"
+  },
+  "应该": {
+    "pinyin": "yinggai",
+    "display_pinyin": "yīnggāi",
+    "meaning": "〜はずだ"
+  },
+  "天气": {
+    "pinyin": "tianqi",
+    "display_pinyin": "tiānqì",
+    "meaning": "天気"
+  },
+  "流利": {
+    "pinyin": "liuli",
+    "display_pinyin": "liúlì",
+    "meaning": "流暢である"
+  },
+  "乌龙茶": {
+    "pinyin": "wulongcha",
+    "display_pinyin": "wūlóngchá",
+    "meaning": "ウーロン茶"
+  },
+  "校车": {
+    "pinyin": "xiaoche",
+    "display_pinyin": "xiàochē",
+    "meaning": "スクールバス"
+  },
+  "钥匙": {
+    "pinyin": "yaoshi",
+    "display_pinyin": "yàoshi",
+    "meaning": "鍵"
+  },
+  "吃完": {
+    "pinyin": "chiwan",
+    "display_pinyin": "chīwán",
+    "meaning": "食べ終わる"
+  },
+  "看懂": {
+    "pinyin": "kandong",
+    "display_pinyin": "kàndǒng",
+    "meaning": "見て理解する"
+  },
+  "回来": {
+    "pinyin": "huilai",
+    "display_pinyin": "huílai",
+    "meaning": "帰ってくる"
+  },
+  "进去": {
+    "pinyin": "jinqu",
+    "display_pinyin": "jìnqu",
+    "meaning": "入っていく"
+  }
+}
