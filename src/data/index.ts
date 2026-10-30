@@ -4,9 +4,19 @@ import rawWords2fall from "./2fall/words.json";
 import rawSentences2fall from "./2fall/sentences.json";
 import type { WordItem, SentenceItem, QuizItem } from "./types";
 
-/** 学期レジストリ。新しい学期はデータフォルダを足してここに 1 行加える。 */
-export type SemesterId = "2sp" | "2fall";
-export const SEMESTER_IDS: readonly SemesterId[] = ["2sp", "2fall"];
+type RawSemester = { label: string; words: unknown; sentences: unknown };
+
+/**
+ * 学期レジストリ（唯一の一覧）。新しい学期はデータフォルダを足し、上の import と
+ * ここに 1 エントリ足すだけでよい。SemesterId / SEMESTER_IDS はここから導出される。
+ */
+const RAW = {
+  "2sp": { label: "2年春", words: rawWords2sp, sentences: rawSentences2sp },
+  "2fall": { label: "2年秋", words: rawWords2fall, sentences: rawSentences2fall },
+} satisfies Record<string, RawSemester>;
+
+export type SemesterId = keyof typeof RAW;
+export const SEMESTER_IDS = Object.keys(RAW) as SemesterId[];
 /** `/` で配信される学期。既存ユーザーの保存キー（サフィックスなし）もこの学期のもの。 */
 export const DEFAULT_SEMESTER: SemesterId = "2sp";
 
@@ -15,6 +25,8 @@ export function isSemesterId(s: string): s is SemesterId {
 }
 
 export type SemesterData = {
+  /** 画面に出す学期名（例: 2年春） */
+  label: string;
   words: WordItem[];
   sentences: SentenceItem[];
   /** All unique tags present in the sentence data, in insertion order */
@@ -28,11 +40,6 @@ export type SemesterData = {
 };
 
 type RawWordEntry = { pinyin: string; display_pinyin: string; meaning: string };
-
-const RAW: Record<SemesterId, { words: unknown; sentences: unknown }> = {
-  "2sp": { words: rawWords2sp, sentences: rawSentences2sp },
-  "2fall": { words: rawWords2fall, sentences: rawSentences2fall },
-};
 
 /**
  * Runtime validation: drop any sentence record that doesn't satisfy its type's
@@ -85,7 +92,7 @@ function buildSemesterData(id: SemesterId): SemesterData {
   for (const wItem of words) itemByKey[wItem.hanzi] = wItem;
   for (const sItem of sentences) itemByKey[sItem.id] = sItem;
 
-  return { words, sentences, sentenceTags, itemByKey };
+  return { label: raw.label, words, sentences, sentenceTags, itemByKey };
 }
 
 const cache = new Map<SemesterId, SemesterData>();

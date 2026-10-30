@@ -24,6 +24,8 @@ export default function Dashboard() {
     })
     .filter((r): r is Row => r !== null);
 
+  const totalTracked = rows.length;
+
   if (filter === "weak") rows = rows.filter(r => isWeak(r.m));
   if (filter === "mastered") rows = rows.filter(r => r.m.total > 0 && (r.m.correct / r.m.total) >= 0.8 && r.m.total >= 3);
 
@@ -69,7 +71,7 @@ export default function Dashboard() {
             </div>
           </div>
           <hr className="divider !my-3" />
-          <div className="text-sm text-[var(--text-secondary)]">総学習語彙数: <strong className="text-[var(--text-primary)]">{Object.keys(mastery).length}</strong></div>
+          <div className="text-sm text-[var(--text-secondary)]">総学習語彙数: <strong className="text-[var(--text-primary)]">{totalTracked}</strong></div>
           <div className="text-sm text-[var(--text-secondary)]">総セッション数: <strong className="text-[var(--text-primary)]">{stats.sessions}</strong></div>
         </div>
 

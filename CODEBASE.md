@@ -1,4 +1,4 @@
-# HSK4 Practice — コードベースガイド
+# 期末試験対策 — コードベースガイド
 
 AIが改修・機能追加を行う際に参照するドキュメント。
 設計上の意図・型の使い方・変更時の注意点を網羅する。
@@ -147,7 +147,7 @@ if (item.type === "rearrange") { item.words }  // RearrangeItem 確定
 ```ts
 // 主要な値と更新方法
 semester: SemesterId                 // "2sp" | "2fall"。<AppProvider semester=...> で固定され、途中で変わらない
-data: SemesterData                   // その学期の { words, sentences, sentenceTags, itemByKey }
+data: SemesterData                   // その学期の { label, words, sentences, sentenceTags, itemByKey }。label は Nav に表示
 
 screen: "home" | "quiz" | "result" | "dashboard"
 setScreen(s)                         // 画面遷移
@@ -156,7 +156,7 @@ sessionConfig: SessionConfig         // ホーム画面で設定、クイズ開�
 setSessionConfig(config)
 
 mastery: Record<string, MasteryData> // キー = hanzi or sentence id
-updateMastery(id, isCorrect, item)   // 正誤を渡すとSRS計算して localStorage に保存
+updateMastery(id, isCorrect)         // 正誤を渡すとSRS計算して localStorage に保存
 
 sessionResult: SessionResult | null  // クイズ終了時にセット、Result画面が参照
 setSessionResult(res)
@@ -294,7 +294,7 @@ Next.js 16 の strict hooks ルールは意図的に緩和している。`any` �
 ### 新しい学期を追加する場合
 
 1. `src/data/<新学期ID>/words.json` と `sentences.json` を置く（`id` は他学期と重複しても動くが、学期内で一意にする）。
-2. `src/data/index.ts` で `SemesterId` に追加し、`SEMESTER_IDS` と `RAW` に 1 行ずつ足す。
+2. `src/data/index.ts` で JSON を 2 つ import し、`RAW` に `{ label, words, sentences }` のエントリを 1 つ足す（`SemesterId` と `SEMESTER_IDS` は `RAW` から自動で決まる）。
 3. 追加の設定は不要。`/<新学期ID>/` が `[semester]/page.tsx` の `generateStaticParams` で自動生成され、localStorage キーは `_<新学期ID>` サフィックスになる。
 
 ### Modal を使う場合

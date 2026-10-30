@@ -91,8 +91,7 @@ export const AppProvider: React.FC<{ semester: SemesterId; children: React.React
         setMastery(JSON.parse(storedMastery));
       } catch {}
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [masteryKey, statsKey]);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);

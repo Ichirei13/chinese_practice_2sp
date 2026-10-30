@@ -10,10 +10,15 @@ export default function Home() {
 
   const isSentenceMode = ["rearrange", "fillin"].includes(sessionConfig.mode);
 
-  const totalStudied = Object.keys(mastery).length;
+  // Only count records that still resolve to an item in this semester's data;
+  // stale keys (removed/renamed items) would otherwise inflate the numbers and
+  // show a "weak review" button that produces an empty queue.
+  const inData = ([key]: [string, unknown]) => key in data.itemByKey;
+  const knownMastery = Object.entries(mastery).filter(inData);
+  const totalStudied = knownMastery.length;
   const acc = stats.total > 0 ? Math.round((stats.correct / stats.total) * 100) : 0;
   
-  const weakItems = Object.values(mastery).filter(isWeak);
+  const weakItems = knownMastery.filter(([, m]) => isWeak(m));
   const hasWeakItems = weakItems.length > 0;
 
   const handleStart = () => {
