@@ -7,7 +7,9 @@ AIが改修・機能追加を行う際に参照するドキュメント。
 
 ## プロジェクト概要
 
-中国語 HSK4 級対策アプリ。659語の単語と176文の例文を、10種類の単語クイズ + 2種類の文法クイズで練習できる。SRS（間隔反復）で効率的な復習をサポートする。
+中国語の試験対策アプリ。単語と例文を、8種類の単語クイズ + 2種類の文章クイズで練習できる。SRS（間隔反復）で効率的な復習をサポートする。
+
+教材は**学期ごと**に分かれている。`/` が 2年春（`2sp`）、`/2fall/` が 2年秋（`2fall`）。学期が違えば教材も学習記録（localStorage）も別。
 
 | 項目 | 内容 |
 |------|------|
@@ -24,18 +26,21 @@ AIが改修・機能追加を行う際に参照するドキュメント。
 ```
 src/
 ├── app/
-│   ├── layout.tsx          # HTML ルート・フォント設定・AppProvider マウント
-│   ├── page.tsx            # screen state で4画面を切り替えるルーター
+│   ├── layout.tsx          # HTML ルート・フォント設定のみ（AppProvider は各ページ側でマウント）
+│   ├── App.tsx             # screen state で4画面を切り替えるルーター（学期に依存しない）
+│   ├── page.tsx            # `/` = 2春: <AppProvider semester="2sp"><App/>
+│   ├── [semester]/page.tsx # `/2fall/` 等: generateStaticParams で DEFAULT 以外の学期を静的生成（dynamicParams=false）
 │   └── globals.css         # CSS変数・Tailwind・カスタムクラス定義
 │
 ├── data/
 │   ├── types.ts            # 【唯一の型定義場所】WordItem / SentenceItem / QuizItem 等
-│   ├── index.ts            # JSONを型付き配列に変換してエクスポート（モジュールレベルで1回のみ）
-│   ├── hsk_words.json      # 659語 { [hanzi]: { pinyin, display_pinyin, meaning } }
-│   └── hsk_sentences.json  # 176文 [ { id, type, tags, words/sentence, answer, accept?, options?, meaning } ]
+│   ├── index.ts            # 学期レジストリ（SEMESTER_IDS）と getSemesterData(id)。学期ごとに1回だけ変換・キャッシュ
+│   ├── 2sp/                # 2年春の教材（words.json / sentences.json）
+│   ├── 2fall/              # 2年秋の教材（words.json / sentences.json。現状はダミー）
+│   └── hsk_*.json          # 旧資産（未使用。clean_data.py / add_sentences.js が参照）
 │
 ├── context/
-│   └── AppContext.tsx       # グローバル状態（screen, theme, stats, mastery, sessionConfig）
+│   └── AppContext.tsx       # グローバル状態（semester, data, screen, theme, stats, mastery, sessionConfig）
 │
 ├── lib/
 │   └── buildQueue.ts       # 純粋関数。出題キュー構築ロジック（テスト可能）
@@ -97,13 +102,13 @@ if (item.type === "rearrange") { item.words }  // RearrangeItem 確定
 
 ### JSON フォーマット
 
-**hsk_words.json:**
+**`src/data/<学期>/words.json`:**
 ```json
 { "学习": { "pinyin": "xue2xi2", "display_pinyin": "xuéxí", "meaning": "学習する" }, ... }
 ```
 `index.ts` で変換時に `display_pinyin || pinyin` を `WordItem.pinyin` に使用。
 
-**hsk_sentences.json:**
+**`src/data/<学期>/sentences.json`:**
 ```json
 [
   { "id": "r-001", "type": "rearrange", "tags": ["第1課"], "words": ["我","喜欢","学习"], "answer": "我喜欢学习", "meaning": "..." },
@@ -141,6 +146,9 @@ if (item.type === "rearrange") { item.words }  // RearrangeItem 確定
 
 ```ts
 // 主要な値と更新方法
+semester: SemesterId                 // "2sp" | "2fall"。<AppProvider semester=...> で固定され、途中で変わらない
+data: SemesterData                   // その学期の { words, sentences, sentenceTags, itemByKey }
+
 screen: "home" | "quiz" | "result" | "dashboard"
 setScreen(s)                         // 画面遷移
 
@@ -158,9 +166,15 @@ resetData()                          // mastery + stats を全消去
 ```
 
 **localStorage キー:**
-- `hsk_mastery` — mastery オブジェクト全体
-- `hsk_stats`   — stats オブジェクト
-- `hsk_theme`   — `"dark"` | `"light"`
+
+| 学期 | mastery | stats |
+|------|---------|-------|
+| `2sp`（`/`） | `final_mastery` | `final_stats` |
+| `2fall`（`/2fall/`） | `final_mastery_2fall` | `final_stats_2fall` |
+
+- `final_theme` — `"dark"` | `"light"`（**全学期で共通**）
+- `2sp` は既存ユーザーの記録を守るためサフィックスなしのキーのまま。他の学期は `_<学期ID>` が付く（`AppContext.tsx` の `storageKey`）。
+- `resetData()` は表示中の学期の mastery / stats だけを消す。
 
 ---
 
@@ -181,10 +195,14 @@ nextReviewDate = 今日 + interval 日後（ISO文字列）
 
 ## 出題キュー構築（`src/lib/buildQueue.ts`）
 
-純粋関数。Quiz.tsx の init `useEffect` から呼ばれる。
+純粋関数。Quiz.tsx の init `useEffect` から呼ばれる。教材は引数で受け取る（モジュール import しない）。
 
 ```ts
-buildQueue(config: SessionConfig, mastery: Record<string, MasteryData>): QuizItem[]
+buildQueue(
+  config: SessionConfig,
+  mastery: Record<string, MasteryData>,
+  data: Pick<SemesterData, "words" | "sentences">
+): QuizItem[]
 ```
 
 処理順:
@@ -267,9 +285,17 @@ Next.js 16 の strict hooks ルールは意図的に緩和している。`any` �
 
 ### データ（JSON）を変更する場合
 
-- `hsk_words.json` のキーは漢字文字列、`display_pinyin` が優先される（なければ `pinyin`）
-- `hsk_sentences.json` の `id` は mastery のキーになるため変更厳禁
-- `SENTENCE_TAGS` は JSON から動的生成されるため、タグ追加は JSON 側だけで完結
+- 教材は `src/data/<学期>/words.json` と `sentences.json`。
+- `words.json` のキーは漢字文字列、`display_pinyin` が優先される（なければ `pinyin`）
+- `sentences.json` の `id` は mastery のキーになるため変更厳禁
+- `sentenceTags`（`getSemesterData(id).sentenceTags`）は JSON から動的生成されるため、タグ追加は JSON 側だけで完結
+- 教材を参照するコードは `import ... from "@/data"` のモジュール変数ではなく、`useAppContext().data`（純粋関数なら引数）を使うこと。学期が混ざる。
+
+### 新しい学期を追加する場合
+
+1. `src/data/<新学期ID>/words.json` と `sentences.json` を置く（`id` は他学期と重複しても動くが、学期内で一意にする）。
+2. `src/data/index.ts` で `SemesterId` に追加し、`SEMESTER_IDS` と `RAW` に 1 行ずつ足す。
+3. 追加の設定は不要。`/<新学期ID>/` が `[semester]/page.tsx` の `generateStaticParams` で自動生成され、localStorage キーは `_<新学期ID>` サフィックスになる。
 
 ### Modal を使う場合
 

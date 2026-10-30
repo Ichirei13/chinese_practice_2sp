@@ -1,6 +1,6 @@
 # HSK4 Practice — 中国語学習アプリ
 
-中国語 HSK4 級対策のクイズアプリ。**659語の単語**と **176文の例文**を、10種類の単語クイズ＋2種類の文法クイズで練習できます。SRS（間隔反復）で苦手な語を効率よく復習できます。
+中国語の試験対策クイズアプリ。単語と例文を、8種類の単語クイズ＋2種類の文章クイズで練習できます。SRS（間隔反復）で苦手な語を効率よく復習できます。
 
 Next.js 16 / React 19 / TypeScript / Tailwind CSS v4 で構築。バックエンド不要（学習データは `localStorage` に保存）。
 
@@ -42,12 +42,23 @@ npm start       # ビルド結果を起動
 npm run lint    # ESLint
 ```
 
+## 学期別の URL
+
+教材は学期ごとに分かれていて、URL の末尾で切り替わります。
+
+| URL | 学期 |
+|-----|------|
+| `/` | 2年春（`2sp`） |
+| `/2fall/` | 2年秋（`2fall`） |
+
+学期が違えば学習記録（`localStorage`）も別です。2秋の教材を差し替えるときは、`src/data/2fall/words.json` と `src/data/2fall/sentences.json` を置き換えます（形式は `src/data/2sp/` と同じ。例文の `id` は変更しないでください）。新しい学期の追加手順は [`CODEBASE.md`](./CODEBASE.md) を参照。
+
 ## ディレクトリ構成
 
 ```
 src/
-├── app/          # layout / page（4画面ルーター）/ globals.css
-├── data/         # 型定義・単語/例文JSON（hsk_words.json, hsk_sentences.json）
+├── app/          # layout / App（4画面ルーター）/ page（/）/ [semester]（/2fall/）/ globals.css
+├── data/         # 型定義・学期別の単語/例文JSON（2sp/, 2fall/）・getSemesterData
 ├── context/      # AppContext（screen, theme, stats, mastery, SRS）
 ├── lib/          # buildQueue（出題キュー構築・純粋関数）
 ├── utils/        # shuffle, tones（声調ディストラクタ生成）
@@ -60,9 +71,9 @@ src/
 
 サーバー・DBは無し。以下を `localStorage` に保存します。
 
-- `hsk_mastery` — 各語の習得状況（SRSの間隔・次回復習日）
-- `hsk_stats` — 学習統計（セッション数・正答数・連続日数）
-- `hsk_theme` — テーマ設定
+- `final_mastery`（2秋は `final_mastery_2fall`）— 各語の習得状況（SRSの間隔・次回復習日）
+- `final_stats`（2秋は `final_stats_2fall`）— 学習統計（セッション数・正答数・連続日数）
+- `final_theme` — テーマ設定（学期共通）
 
 ## デプロイ
 
