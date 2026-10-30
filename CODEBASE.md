@@ -36,7 +36,7 @@ src/
 │   ├── types.ts            # 【唯一の型定義場所】WordItem / SentenceItem / QuizItem 等
 │   ├── index.ts            # 学期レジストリ（SEMESTER_IDS）と getSemesterData(id)。学期ごとに1回だけ変換・キャッシュ
 │   ├── 2sp/                # 2年春の教材（words.json / sentences.json）
-│   ├── 2fall/              # 2年秋の教材（words.json / sentences.json。現状はダミー）
+│   ├── 2fall/              # 2年秋の教材（words.json / sentences.json。第7〜9課: 単語145・並べ替え45・穴埋め48）
 │   └── hsk_*.json          # 旧資産（未使用。clean_data.py / add_sentences.js が参照）
 │
 ├── context/

@@ -51,7 +51,7 @@ npm run lint    # ESLint
 | `/` | 2年春（`2sp`） |
 | `/2fall/` | 2年秋（`2fall`） |
 
-学期が違えば学習記録（`localStorage`）も別です。2秋の教材を差し替えるときは、`src/data/2fall/words.json` と `src/data/2fall/sentences.json` を置き換えます（形式は `src/data/2sp/` と同じ。例文の `id` は変更しないでください）。新しい学期の追加手順は [`CODEBASE.md`](./CODEBASE.md) を参照。
+学期が違えば学習記録（`localStorage`）も別です。2秋は第7〜9課（単語145語・並べ替え45問・穴埋め48問）です。教材を追加・修正するときは `src/data/2fall/words.json` と `src/data/2fall/sentences.json` を編集します（形式は `src/data/2sp/` と同じ。例文の `id` は学習記録のキーなので変更しないでください）。新しい学期の追加手順は [`CODEBASE.md`](./CODEBASE.md) を参照。
 
 ## ディレクトリ構成
 
