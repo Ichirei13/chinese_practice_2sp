@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Noto_Sans_SC } from "next/font/google";
 import "./globals.css";
-import { AppProvider } from "@/context/AppContext";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const notoSansSc = Noto_Sans_SC({
@@ -34,9 +33,7 @@ export default function RootLayout({
   return (
     <html lang="ja" data-theme="dark" className={`${inter.variable} ${notoSansSc.variable}`}>
       <body className="antialiased">
-        <AppProvider>
-          {children}
-        </AppProvider>
+        {children}
       </body>
     </html>
   );

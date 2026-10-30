@@ -1,17 +1,45 @@
-import rawWords from "./exam_words.json";
-import rawSentences from "./exam_sentences.json";
+import rawWords2sp from "./2sp/words.json";
+import rawSentences2sp from "./2sp/sentences.json";
+import rawWords2fall from "./2fall/words.json";
+import rawSentences2fall from "./2fall/sentences.json";
 import type { WordItem, SentenceItem, QuizItem } from "./types";
 
-type RawWordEntry = { pinyin: string; display_pinyin: string; meaning: string };
+type RawSemester = { label: string; words: unknown; sentences: unknown };
 
-export const words: WordItem[] = Object.entries(rawWords as Record<string, RawWordEntry>).map(
-  ([hanzi, data]) => ({
-    hanzi,
-    pinyin: data.display_pinyin || data.pinyin,
-    meaning: data.meaning,
-    type: "word" as const,
-  })
-);
+/**
+ * 学期レジストリ（唯一の一覧）。新しい学期はデータフォルダを足し、上の import と
+ * ここに 1 エントリ足すだけでよい。SemesterId / SEMESTER_IDS はここから導出される。
+ */
+const RAW = {
+  "2sp": { label: "2年春", words: rawWords2sp, sentences: rawSentences2sp },
+  "2fall": { label: "2年秋", words: rawWords2fall, sentences: rawSentences2fall },
+} satisfies Record<string, RawSemester>;
+
+export type SemesterId = keyof typeof RAW;
+export const SEMESTER_IDS = Object.keys(RAW) as SemesterId[];
+/** `/` で配信される学期。既存ユーザーの保存キー（サフィックスなし）もこの学期のもの。 */
+export const DEFAULT_SEMESTER: SemesterId = "2sp";
+
+export function isSemesterId(s: string): s is SemesterId {
+  return (SEMESTER_IDS as readonly string[]).includes(s);
+}
+
+export type SemesterData = {
+  /** 画面に出す学期名（例: 2年春） */
+  label: string;
+  words: WordItem[];
+  sentences: SentenceItem[];
+  /** All unique tags present in the sentence data, in insertion order */
+  sentenceTags: string[];
+  /**
+   * Lookup from mastery key → current item. Word items are keyed by hanzi and
+   * sentence items by id (these never collide). Used so Dashboard/Result always
+   * show the *current* data even if a stored mastery record predates a fix.
+   */
+  itemByKey: Record<string, QuizItem>;
+};
+
+type RawWordEntry = { pinyin: string; display_pinyin: string; meaning: string };
 
 /**
  * Runtime validation: drop any sentence record that doesn't satisfy its type's
@@ -37,25 +65,44 @@ function isValidSentence(s: unknown): s is SentenceItem {
   return false;
 }
 
-const rawSentenceList = rawSentences as unknown[];
-export const sentences: SentenceItem[] = rawSentenceList.filter(isValidSentence);
+function buildSemesterData(id: SemesterId): SemesterData {
+  const raw = RAW[id];
 
-if (process.env.NODE_ENV !== "production" && sentences.length !== rawSentenceList.length) {
-  console.warn(
-    `[data] ${rawSentenceList.length - sentences.length} sentence record(s) dropped by validation.`
+  const words: WordItem[] = Object.entries(raw.words as Record<string, RawWordEntry>).map(
+    ([hanzi, data]) => ({
+      hanzi,
+      pinyin: data.display_pinyin || data.pinyin,
+      meaning: data.meaning,
+      type: "word" as const,
+    })
   );
+
+  const rawSentenceList = raw.sentences as unknown[];
+  const sentences: SentenceItem[] = rawSentenceList.filter(isValidSentence);
+
+  if (process.env.NODE_ENV !== "production" && sentences.length !== rawSentenceList.length) {
+    console.warn(
+      `[data:${id}] ${rawSentenceList.length - sentences.length} sentence record(s) dropped by validation.`
+    );
+  }
+
+  const sentenceTags = Array.from(new Set(sentences.flatMap((s) => s.tags)));
+
+  const itemByKey: Record<string, QuizItem> = {};
+  for (const wItem of words) itemByKey[wItem.hanzi] = wItem;
+  for (const sItem of sentences) itemByKey[sItem.id] = sItem;
+
+  return { label: raw.label, words, sentences, sentenceTags, itemByKey };
 }
 
-/** All unique tags present in the sentence data, in insertion order */
-export const SENTENCE_TAGS: string[] = Array.from(
-  new Set(sentences.flatMap((s) => s.tags))
-);
+const cache = new Map<SemesterId, SemesterData>();
 
-/**
- * Lookup from mastery key → current item. Word items are keyed by hanzi and
- * sentence items by id (these never collide). Used so Dashboard/Result always
- * show the *current* data even if a stored mastery record predates a fix.
- */
-export const itemByKey: Record<string, QuizItem> = {};
-for (const wItem of words) itemByKey[wItem.hanzi] = wItem;
-for (const sItem of sentences) itemByKey[sItem.id] = sItem;
+/** 学期の教材を返す。変換と検証は学期ごとに 1 回だけ行う。 */
+export function getSemesterData(id: SemesterId): SemesterData {
+  let data = cache.get(id);
+  if (!data) {
+    data = buildSemesterData(id);
+    cache.set(id, data);
+  }
+  return data;
+}

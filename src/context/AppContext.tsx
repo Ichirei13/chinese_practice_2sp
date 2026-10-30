@@ -1,6 +1,8 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { getSemesterData } from "@/data";
+import type { SemesterId, SemesterData } from "@/data";
 import type { QuizItem, SessionConfig, SessionResult, MasteryData } from "@/data/types";
 
 export type ScreenType = "home" | "quiz" | "result" | "dashboard";
@@ -17,6 +19,9 @@ export interface AppStats {
 export type { MasteryData, SessionConfig, SessionResult };
 
 interface AppContextType {
+  /** 表示中の学期と、その学期の教材 */
+  semester: SemesterId;
+  data: SemesterData;
   screen: ScreenType;
   setScreen: (screen: ScreenType) => void;
   theme: "dark" | "light";
@@ -39,7 +44,18 @@ const defaultStats: AppStats = { sessions: 0, correct: 0, total: 0, lastDate: ""
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
-export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+/**
+ * localStorage key per semester. 2sp keeps the original un-suffixed keys so
+ * existing users' records stay intact; other semesters get a `_<id>` suffix.
+ * The theme key is shared across semesters and does not go through here.
+ */
+const storageKey = (base: "final_mastery" | "final_stats", semester: SemesterId): string =>
+  semester === "2sp" ? base : `${base}_${semester}`;
+
+export const AppProvider: React.FC<{ semester: SemesterId; children: React.ReactNode }> = ({ semester, children }) => {
+  const data = getSemesterData(semester);
+  const masteryKey = storageKey("final_mastery", semester);
+  const statsKey = storageKey("final_stats", semester);
   const [screen, setScreen] = useState<ScreenType>("home");
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [stats, setStats] = useState<AppStats>(defaultStats);
@@ -55,7 +71,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const storedTheme = localStorage.getItem("final_theme") as "dark" | "light";
     if (storedTheme) setTheme(storedTheme);
 
-    const storedStats = localStorage.getItem("final_stats");
+    const storedStats = localStorage.getItem(statsKey);
     if (storedStats) {
       try {
         const pStats = JSON.parse(storedStats);
@@ -69,13 +85,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       } catch {}
     }
 
-    const storedMastery = localStorage.getItem("final_mastery");
+    const storedMastery = localStorage.getItem(masteryKey);
     if (storedMastery) {
       try {
         setMastery(JSON.parse(storedMastery));
       } catch {}
     }
-  }, []);
+  }, [masteryKey, statsKey]);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -89,7 +105,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const updateStats = (newStats: Partial<AppStats>) => {
     setStats(prev => {
       const updated = { ...prev, ...newStats };
-      localStorage.setItem("final_stats", JSON.stringify(updated));
+      localStorage.setItem(statsKey, JSON.stringify(updated));
       return updated;
     });
   };
@@ -131,7 +147,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           nextReviewDate,
         },
       };
-      localStorage.setItem("final_mastery", JSON.stringify(updated));
+      localStorage.setItem(masteryKey, JSON.stringify(updated));
       return updated;
     });
   };
@@ -139,12 +155,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const resetData = () => {
     setStats(defaultStats);
     setMastery({});
-    localStorage.removeItem("final_stats");
-    localStorage.removeItem("final_mastery");
+    localStorage.removeItem(statsKey);
+    localStorage.removeItem(masteryKey);
   };
 
   return (
     <AppContext.Provider value={{
+      semester, data,
       screen, setScreen, theme, toggleTheme,
       stats, updateStats, mastery, updateMastery, resetData,
       sessionResult, setSessionResult, sessionConfig, setSessionConfig,

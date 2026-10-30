@@ -2,19 +2,23 @@
 
 import React from "react";
 import { useAppContext } from "@/context/AppContext";
-import { SENTENCE_TAGS } from "@/data";
 import { isWeak } from "@/lib/buildQueue";
 import type { QuizMode } from "@/data/types";
 
 export default function Home() {
-  const { setScreen, stats, mastery, sessionConfig, setSessionConfig } = useAppContext();
+  const { setScreen, stats, mastery, sessionConfig, setSessionConfig, data } = useAppContext();
 
   const isSentenceMode = ["rearrange", "fillin"].includes(sessionConfig.mode);
 
-  const totalStudied = Object.keys(mastery).length;
+  // Only count records that still resolve to an item in this semester's data;
+  // stale keys (removed/renamed items) would otherwise inflate the numbers and
+  // show a "weak review" button that produces an empty queue.
+  const inData = ([key]: [string, unknown]) => key in data.itemByKey;
+  const knownMastery = Object.entries(mastery).filter(inData);
+  const totalStudied = knownMastery.length;
   const acc = stats.total > 0 ? Math.round((stats.correct / stats.total) * 100) : 0;
   
-  const weakItems = Object.values(mastery).filter(isWeak);
+  const weakItems = knownMastery.filter(([, m]) => isWeak(m));
   const hasWeakItems = weakItems.length > 0;
 
   const handleStart = () => {
@@ -178,7 +182,7 @@ export default function Home() {
                 </div>
                 <select className="select min-w-[100px]" value={sessionConfig.tag} onChange={e => setSessionConfig({...sessionConfig, tag: e.target.value})}>
                   <option value="all">すべて</option>
-                  {SENTENCE_TAGS.map(tag => (
+                  {data.sentenceTags.map(tag => (
                     <option key={tag} value={tag}>{tag}</option>
                   ))}
                 </select>

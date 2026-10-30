@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useAppContext } from "@/context/AppContext";
-import { words as wordsData } from "@/data";
 import type { QuizItem, WordItem } from "@/data/types";
 import { generateToneDistractors } from "@/utils/tones";
 import { shuffle } from "@/utils/shuffle";
@@ -27,7 +26,7 @@ const isWordItem = (item: QuizItem): item is WordItem => item.type === "word";
 const getItemId = (item: QuizItem): string => isWordItem(item) ? item.hanzi : item.id;
 
 export default function Quiz() {
-  const { setScreen, sessionConfig, setSessionConfig, mastery, updateMastery, setSessionResult, updateStats, stats, retryQueue, setRetryQueue } = useAppContext();
+  const { setScreen, sessionConfig, setSessionConfig, mastery, updateMastery, setSessionResult, updateStats, stats, retryQueue, setRetryQueue, data } = useAppContext();
 
   // ── All hooks declared unconditionally at the top ──────────────────────────
   const [queue, setQueue] = useState<QuizItem[]>([]);
@@ -82,7 +81,7 @@ export default function Quiz() {
       setQueue(retryQueue);
       setRetryQueue(null);
     } else {
-      const q = buildQueue(sessionConfig, mastery);
+      const q = buildQueue(sessionConfig, mastery, data);
       if (q.length === 0) {
         setShowEmptyAlert(true);
       } else {
@@ -155,13 +154,13 @@ export default function Quiz() {
     // In meaning mode, also exclude distractors that share the correct meaning,
     // otherwise two "correct" answers can appear (synonym words in the data).
     const pool = shuffle(
-      wordsData.filter(w =>
+      data.words.filter(w =>
         w.hanzi !== currentItem.hanzi &&
         (sessionConfig.mode !== "meaning" || w.meaning !== currentItem.meaning)
       )
     ).slice(0, 3);
     return shuffle([currentItem, ...pool]);
-  }, [currentItem, sessionConfig.mode]);
+  }, [currentItem, sessionConfig.mode, data.words]);
 
   // Keyboard shortcuts
   useEffect(() => {

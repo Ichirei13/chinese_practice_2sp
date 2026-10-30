@@ -1,0 +1,727 @@
+{
+  "中秋节": {
+    "pinyin": "zhongqiujie",
+    "display_pinyin": "zhōngqiūjié",
+    "meaning": "中秋節"
+  },
+  "月饼": {
+    "pinyin": "yuebing",
+    "display_pinyin": "yuèbing",
+    "meaning": "月餅"
+  },
+  "习俗": {
+    "pinyin": "xisu",
+    "display_pinyin": "xísú",
+    "meaning": "風習"
+  },
+  "一边…一边…": {
+    "pinyin": "yibianyibian",
+    "display_pinyin": "yìbiān…yìbiān…",
+    "meaning": "〜しながら、〜する"
+  },
+  "赏月": {
+    "pinyin": "shangyue",
+    "display_pinyin": "shǎngyuè",
+    "meaning": "月見する"
+  },
+  "好…啊": {
+    "pinyin": "haoa",
+    "display_pinyin": "hǎo…a",
+    "meaning": "なんて〜だろう"
+  },
+  "温馨": {
+    "pinyin": "wenxin",
+    "display_pinyin": "wēnxīn",
+    "meaning": "温かい"
+  },
+  "因为": {
+    "pinyin": "yinwei",
+    "display_pinyin": "yīnwèi",
+    "meaning": "〜なので"
+  },
+  "团圆": {
+    "pinyin": "tuanyuan",
+    "display_pinyin": "tuányuán",
+    "meaning": "団らんする"
+  },
+  "日子": {
+    "pinyin": "rizi",
+    "display_pinyin": "rìzi",
+    "meaning": "日"
+  },
+  "虽然": {
+    "pinyin": "suiran",
+    "display_pinyin": "suīrán",
+    "meaning": "〜だけれども"
+  },
+  "但是": {
+    "pinyin": "danshi",
+    "display_pinyin": "dànshì",
+    "meaning": "しかし"
+  },
+  "很少": {
+    "pinyin": "henshao",
+    "display_pinyin": "hěnshǎo",
+    "meaning": "めったに〜しない"
+  },
+  "馅儿": {
+    "pinyin": "xianr",
+    "display_pinyin": "xiànr",
+    "meaning": "あん"
+  },
+  "种类": {
+    "pinyin": "zhonglei",
+    "display_pinyin": "zhǒnglèi",
+    "meaning": "種類"
+  },
+  "一些": {
+    "pinyin": "yixie",
+    "display_pinyin": "yìxiē",
+    "meaning": "いくつか"
+  },
+  "尝": {
+    "pinyin": "chang",
+    "display_pinyin": "cháng",
+    "meaning": "味わう"
+  },
+  "哪种": {
+    "pinyin": "neizhong",
+    "display_pinyin": "něizhǒng",
+    "meaning": "どの種類"
+  },
+  "莲蓉": {
+    "pinyin": "lianrong",
+    "display_pinyin": "liánróng",
+    "meaning": "ハスの実をすりつぶしたもの"
+  },
+  "蛋黄": {
+    "pinyin": "danhuang",
+    "display_pinyin": "dànhuáng",
+    "meaning": "黄身"
+  },
+  "出门": {
+    "pinyin": "chumen",
+    "display_pinyin": "chūmén",
+    "meaning": "外出する"
+  },
+  "复习": {
+    "pinyin": "fuxi",
+    "display_pinyin": "fùxí",
+    "meaning": "復習する"
+  },
+  "春节": {
+    "pinyin": "chunjie",
+    "display_pinyin": "chūnjié",
+    "meaning": "春節（旧正月）"
+  },
+  "元宵节": {
+    "pinyin": "yuanxiaojie",
+    "display_pinyin": "yuánxiāojié",
+    "meaning": "元宵節"
+  },
+  "妇女节": {
+    "pinyin": "funvjie",
+    "display_pinyin": "fùnǚjié",
+    "meaning": "国際女性デー"
+  },
+  "清明节": {
+    "pinyin": "qingmingjie",
+    "display_pinyin": "qīngmíngjié",
+    "meaning": "清明節（先祖を供養する）"
+  },
+  "劳动节": {
+    "pinyin": "laodongjie",
+    "display_pinyin": "láodòngjié",
+    "meaning": "労働節（メーデー）"
+  },
+  "端午节": {
+    "pinyin": "duanwujie",
+    "display_pinyin": "duānwǔjié",
+    "meaning": "端午の節句"
+  },
+  "国庆节": {
+    "pinyin": "guoqingjie",
+    "display_pinyin": "guóqìngjié",
+    "meaning": "国慶節（建国記念日）"
+  },
+  "除夕": {
+    "pinyin": "chuxi",
+    "display_pinyin": "chúxī",
+    "meaning": "大みそか"
+  },
+  "到": {
+    "pinyin": "dao",
+    "display_pinyin": "dào",
+    "meaning": "到来する"
+  },
+  "聊": {
+    "pinyin": "liao",
+    "display_pinyin": "liáo",
+    "meaning": "おしゃべりする"
+  },
+  "知道": {
+    "pinyin": "zhidao",
+    "display_pinyin": "zhīdào",
+    "meaning": "知っている"
+  },
+  "家人": {
+    "pinyin": "jiaren",
+    "display_pinyin": "jiārén",
+    "meaning": "家族"
+  },
+  "最": {
+    "pinyin": "zui",
+    "display_pinyin": "zuì",
+    "meaning": "最も"
+  },
+  "推荐": {
+    "pinyin": "tuijian",
+    "display_pinyin": "tuījiàn",
+    "meaning": "すすめる、推薦する"
+  },
+  "好吃": {
+    "pinyin": "haochi",
+    "display_pinyin": "hǎochī",
+    "meaning": "おいしい"
+  },
+  "告诉": {
+    "pinyin": "gaosu",
+    "display_pinyin": "gàosu",
+    "meaning": "告げる、教える"
+  },
+  "大家": {
+    "pinyin": "dajia",
+    "display_pinyin": "dàjiā",
+    "meaning": "みんな"
+  },
+  "一般": {
+    "pinyin": "yiban",
+    "display_pinyin": "yìbān",
+    "meaning": "ふつう、一般的に／ありきたりだ"
+  },
+  "给": {
+    "pinyin": "gei",
+    "display_pinyin": "gěi",
+    "meaning": "〜に（前置詞）"
+  },
+  "快…了": {
+    "pinyin": "kuaile",
+    "display_pinyin": "kuài…le",
+    "meaning": "もうすぐ〜だ"
+  },
+  "考试": {
+    "pinyin": "kaoshi",
+    "display_pinyin": "kǎoshì",
+    "meaning": "試験"
+  },
+  "手机": {
+    "pinyin": "shouji",
+    "display_pinyin": "shǒujī",
+    "meaning": "携帯電話"
+  },
+  "做": {
+    "pinyin": "zuo",
+    "display_pinyin": "zuò",
+    "meaning": "作る、（仕事などを）する"
+  },
+  "麻婆豆腐": {
+    "pinyin": "mapodoufu",
+    "display_pinyin": "mápódòufu",
+    "meaning": "マーボー豆腐"
+  },
+  "川菜": {
+    "pinyin": "chuancai",
+    "display_pinyin": "chuāncài",
+    "meaning": "四川料理"
+  },
+  "招牌菜": {
+    "pinyin": "zhaopaicai",
+    "display_pinyin": "zhāopáicài",
+    "meaning": "看板メニュー"
+  },
+  "如果": {
+    "pinyin": "ruguo",
+    "display_pinyin": "rúguǒ",
+    "meaning": "もし"
+  },
+  "把": {
+    "pinyin": "ba",
+    "display_pinyin": "bǎ",
+    "meaning": "〜を"
+  },
+  "肉末": {
+    "pinyin": "roumo",
+    "display_pinyin": "ròumò",
+    "meaning": "ひき肉"
+  },
+  "调料": {
+    "pinyin": "tiaoliao",
+    "display_pinyin": "tiáoliào",
+    "meaning": "調味料"
+  },
+  "呢": {
+    "pinyin": "ne",
+    "display_pinyin": "ne",
+    "meaning": "〜かな"
+  },
+  "先": {
+    "pinyin": "xian",
+    "display_pinyin": "xiān",
+    "meaning": "まず"
+  },
+  "切": {
+    "pinyin": "qie",
+    "display_pinyin": "qiē",
+    "meaning": "切る"
+  },
+  "炒": {
+    "pinyin": "chao",
+    "display_pinyin": "chǎo",
+    "meaning": "炒める"
+  },
+  "熟": {
+    "pinyin": "shu",
+    "display_pinyin": "shú",
+    "meaning": "火が通る"
+  },
+  "只要…就…": {
+    "pinyin": "zhiyaojiu",
+    "display_pinyin": "zhǐyào…jiù…",
+    "meaning": "〜さえすれば、〜"
+  },
+  "放假": {
+    "pinyin": "fangjia",
+    "display_pinyin": "fàngjià",
+    "meaning": "休みになる"
+  },
+  "了": {
+    "pinyin": "le",
+    "display_pinyin": "le",
+    "meaning": "〜してから"
+  },
+  "一定": {
+    "pinyin": "yiding",
+    "display_pinyin": "yídìng",
+    "meaning": "必ず、きっと"
+  },
+  "努力": {
+    "pinyin": "nuli",
+    "display_pinyin": "nǔlì",
+    "meaning": "努力する"
+  },
+  "学好": {
+    "pinyin": "xuehao",
+    "display_pinyin": "xuéhǎo",
+    "meaning": "習得する"
+  },
+  "晚点": {
+    "pinyin": "wandian",
+    "display_pinyin": "wǎndiǎn",
+    "meaning": "遅延する"
+  },
+  "下课": {
+    "pinyin": "xiake",
+    "display_pinyin": "xiàkè",
+    "meaning": "授業が終わる"
+  },
+  "煸": {
+    "pinyin": "bian",
+    "display_pinyin": "biān",
+    "meaning": "少量の油でじっくり炒める"
+  },
+  "爆": {
+    "pinyin": "bao",
+    "display_pinyin": "bào",
+    "meaning": "強火で炒める"
+  },
+  "炸": {
+    "pinyin": "zha",
+    "display_pinyin": "zhá",
+    "meaning": "揚げる"
+  },
+  "煎": {
+    "pinyin": "jian",
+    "display_pinyin": "jiān",
+    "meaning": "少量の油を入れて焼く"
+  },
+  "红烧": {
+    "pinyin": "hongshao",
+    "display_pinyin": "hóngshāo",
+    "meaning": "醤油で煮込む"
+  },
+  "涮": {
+    "pinyin": "shuan",
+    "display_pinyin": "shuàn",
+    "meaning": "しゃぶしゃぶをする"
+  },
+  "煮": {
+    "pinyin": "zhu",
+    "display_pinyin": "zhǔ",
+    "meaning": "ゆでる"
+  },
+  "蒸": {
+    "pinyin": "zheng",
+    "display_pinyin": "zhēng",
+    "meaning": "蒸す"
+  },
+  "烤": {
+    "pinyin": "kao",
+    "display_pinyin": "kǎo",
+    "meaning": "あぶる"
+  },
+  "干煸四季豆": {
+    "pinyin": "ganbiansijidou",
+    "display_pinyin": "gānbiānsìjìdòu",
+    "meaning": "インゲン炒め"
+  },
+  "葱爆羊肉": {
+    "pinyin": "congbaoyangrou",
+    "display_pinyin": "cōngbàoyángròu",
+    "meaning": "ネギと羊肉の炒め物"
+  },
+  "炸酱面": {
+    "pinyin": "zhajiangmian",
+    "display_pinyin": "zhájiàngmiàn",
+    "meaning": "ジャージャン麺"
+  },
+  "生煎包": {
+    "pinyin": "shengjianbao",
+    "display_pinyin": "shēngjiānbāo",
+    "meaning": "焼き小籠包"
+  },
+  "红烧肉": {
+    "pinyin": "hongshaorou",
+    "display_pinyin": "hóngshāoròu",
+    "meaning": "皮付き豚肉の醤油煮込み"
+  },
+  "涮羊肉": {
+    "pinyin": "shuanyangrou",
+    "display_pinyin": "shuànyángròu",
+    "meaning": "羊肉のしゃぶしゃぶ鍋"
+  },
+  "水煮肉片": {
+    "pinyin": "shuizhuroupian",
+    "display_pinyin": "shuǐzhǔròupiàn",
+    "meaning": "豚肉の四川風辛み煮込み"
+  },
+  "粉蒸肉": {
+    "pinyin": "fenzhengrou",
+    "display_pinyin": "fěnzhēngròu",
+    "meaning": "お肉に米の粉をまぶして蒸したもの"
+  },
+  "北京烤鸭": {
+    "pinyin": "beijingkaoya",
+    "display_pinyin": "běijīngkǎoyā",
+    "meaning": "北京ダック"
+  },
+  "认为": {
+    "pinyin": "renwei",
+    "display_pinyin": "rènwéi",
+    "meaning": "〜と考える"
+  },
+  "再": {
+    "pinyin": "zai",
+    "display_pinyin": "zài",
+    "meaning": "それから"
+  },
+  "难…": {
+    "pinyin": "nan",
+    "display_pinyin": "nán…",
+    "meaning": "〜しにくい"
+  },
+  "跟": {
+    "pinyin": "gen",
+    "display_pinyin": "gēn",
+    "meaning": "〜に"
+  },
+  "会": {
+    "pinyin": "hui",
+    "display_pinyin": "huì",
+    "meaning": "（習得して）〜できる"
+  },
+  "教": {
+    "pinyin": "jiao",
+    "display_pinyin": "jiāo",
+    "meaning": "教える"
+  },
+  "时间": {
+    "pinyin": "shijian",
+    "display_pinyin": "shíjiān",
+    "meaning": "時間"
+  },
+  "要": {
+    "pinyin": "yao",
+    "display_pinyin": "yào",
+    "meaning": "〜しなければならない"
+  },
+  "食材": {
+    "pinyin": "shicai",
+    "display_pinyin": "shícái",
+    "meaning": "食材"
+  },
+  "豆腐": {
+    "pinyin": "doufu",
+    "display_pinyin": "dòufu",
+    "meaning": "豆腐"
+  },
+  "怎么": {
+    "pinyin": "zenme",
+    "display_pinyin": "zěnme",
+    "meaning": "どのように"
+  },
+  "然后": {
+    "pinyin": "ranhou",
+    "display_pinyin": "ránhòu",
+    "meaning": "それから"
+  },
+  "好像": {
+    "pinyin": "haoxiang",
+    "display_pinyin": "hǎoxiàng",
+    "meaning": "〜のようだ"
+  },
+  "不太": {
+    "pinyin": "butai",
+    "display_pinyin": "bútài",
+    "meaning": "あまり〜ない"
+  },
+  "几次": {
+    "pinyin": "jici",
+    "display_pinyin": "jǐcì",
+    "meaning": "何回か"
+  },
+  "能": {
+    "pinyin": "neng",
+    "display_pinyin": "néng",
+    "meaning": "〜できる"
+  },
+  "联系": {
+    "pinyin": "lianxi",
+    "display_pinyin": "liánxì",
+    "meaning": "連絡する"
+  },
+  "开始": {
+    "pinyin": "kaishi",
+    "display_pinyin": "kāishǐ",
+    "meaning": "始める"
+  },
+  "赶快": {
+    "pinyin": "gankuai",
+    "display_pinyin": "gǎnkuài",
+    "meaning": "急いで"
+  },
+  "打电话": {
+    "pinyin": "dadianhua",
+    "display_pinyin": "dǎdiànhuà",
+    "meaning": "電話をかける"
+  },
+  "卡拉OK": {
+    "pinyin": "kalaok",
+    "display_pinyin": "kǎlāok",
+    "meaning": "カラオケ"
+  },
+  "飞机": {
+    "pinyin": "feiji",
+    "display_pinyin": "fēijī",
+    "meaning": "飛行機"
+  },
+  "兼职": {
+    "pinyin": "jianzhi",
+    "display_pinyin": "jiānzhí",
+    "meaning": "アルバイト、パートタイムの〜"
+  },
+  "旅行社": {
+    "pinyin": "lvxingshe",
+    "display_pinyin": "lǚxíngshè",
+    "meaning": "旅行会社"
+  },
+  "当": {
+    "pinyin": "dang",
+    "display_pinyin": "dāng",
+    "meaning": "〜になる"
+  },
+  "导游": {
+    "pinyin": "daoyou",
+    "display_pinyin": "dǎoyóu",
+    "meaning": "ガイド"
+  },
+  "辛苦": {
+    "pinyin": "xinku",
+    "display_pinyin": "xīnkǔ",
+    "meaning": "苦労する、きつい"
+  },
+  "刚": {
+    "pinyin": "gang",
+    "display_pinyin": "gāng",
+    "meaning": "〜したばかりだ"
+  },
+  "时候": {
+    "pinyin": "shihou",
+    "display_pinyin": "shíhou",
+    "meaning": "時"
+  },
+  "觉得": {
+    "pinyin": "juede",
+    "display_pinyin": "juéde",
+    "meaning": "感じる、〜と思う"
+  },
+  "后来": {
+    "pinyin": "houlai",
+    "display_pinyin": "hòulái",
+    "meaning": "その後"
+  },
+  "习惯": {
+    "pinyin": "xiguan",
+    "display_pinyin": "xíguàn",
+    "meaning": "慣れる"
+  },
+  "影响": {
+    "pinyin": "yingxiang",
+    "display_pinyin": "yǐngxiǎng",
+    "meaning": "影響を与える"
+  },
+  "学习": {
+    "pinyin": "xuexi",
+    "display_pinyin": "xuéxí",
+    "meaning": "勉強する"
+  },
+  "安排": {
+    "pinyin": "anpai",
+    "display_pinyin": "ānpái",
+    "meaning": "やりくりする"
+  },
+  "为什么": {
+    "pinyin": "weishenme",
+    "display_pinyin": "wèishénme",
+    "meaning": "なぜ"
+  },
+  "挣": {
+    "pinyin": "zheng",
+    "display_pinyin": "zhèng",
+    "meaning": "（お金を）稼ぐ"
+  },
+  "零花钱": {
+    "pinyin": "linghuaqian",
+    "display_pinyin": "línghuāqián",
+    "meaning": "小遣い"
+  },
+  "积累": {
+    "pinyin": "jilei",
+    "display_pinyin": "jīlěi",
+    "meaning": "蓄積する"
+  },
+  "经验": {
+    "pinyin": "jingyan",
+    "display_pinyin": "jīngyàn",
+    "meaning": "経験"
+  },
+  "一…就…": {
+    "pinyin": "yijiu",
+    "display_pinyin": "yī…jiù…",
+    "meaning": "〜すると、すぐ〜"
+  },
+  "电影": {
+    "pinyin": "dianying",
+    "display_pinyin": "diànyǐng",
+    "meaning": "映画"
+  },
+  "课": {
+    "pinyin": "ke",
+    "display_pinyin": "kè",
+    "meaning": "（教科書の）課"
+  },
+  "认真": {
+    "pinyin": "renzhen",
+    "display_pinyin": "rènzhēn",
+    "meaning": "真剣だ"
+  },
+  "困": {
+    "pinyin": "kun",
+    "display_pinyin": "kùn",
+    "meaning": "眠たい"
+  },
+  "不要": {
+    "pinyin": "buyao",
+    "display_pinyin": "búyào",
+    "meaning": "〜してはいけない"
+  },
+  "店员": {
+    "pinyin": "dianyuan",
+    "display_pinyin": "diànyuán",
+    "meaning": "店員"
+  },
+  "服务员": {
+    "pinyin": "fuwuyuan",
+    "display_pinyin": "fúwùyuán",
+    "meaning": "飲食店の店員"
+  },
+  "收银员": {
+    "pinyin": "shouyinyuan",
+    "display_pinyin": "shōuyínyuán",
+    "meaning": "レジ係"
+  },
+  "配送员": {
+    "pinyin": "peisongyuan",
+    "display_pinyin": "pèisòngyuán",
+    "meaning": "配達員"
+  },
+  "家教": {
+    "pinyin": "jiajiao",
+    "display_pinyin": "jiājiào",
+    "meaning": "家庭教師"
+  },
+  "推销员": {
+    "pinyin": "tuixiaoyuan",
+    "display_pinyin": "tuīxiāoyuán",
+    "meaning": "セールスマン"
+  },
+  "客服": {
+    "pinyin": "kefu",
+    "display_pinyin": "kèfú",
+    "meaning": "カスタマーサービス"
+  },
+  "酒店前台": {
+    "pinyin": "jiudianqiantai",
+    "display_pinyin": "jiǔdiànqiántái",
+    "meaning": "ホテルのフロント"
+  },
+  "翻译": {
+    "pinyin": "fanyi",
+    "display_pinyin": "fānyì",
+    "meaning": "通訳、翻訳者"
+  },
+  "目的": {
+    "pinyin": "mudi",
+    "display_pinyin": "mùdì",
+    "meaning": "目的"
+  },
+  "一方面": {
+    "pinyin": "yifangmian",
+    "display_pinyin": "yìfāngmiàn",
+    "meaning": "一方で"
+  },
+  "另一方面": {
+    "pinyin": "lingyifangmian",
+    "display_pinyin": "lìngyìfāngmiàn",
+    "meaning": "他方で"
+  },
+  "决定": {
+    "pinyin": "jueding",
+    "display_pinyin": "juédìng",
+    "meaning": "決める"
+  },
+  "家": {
+    "pinyin": "jia",
+    "display_pinyin": "jiā",
+    "meaning": "〜軒（会社・店を数える量詞）"
+  },
+  "只要": {
+    "pinyin": "zhiyao",
+    "display_pinyin": "zhǐyào",
+    "meaning": "〜さえすれば"
+  },
+  "找": {
+    "pinyin": "zhao",
+    "display_pinyin": "zhǎo",
+    "meaning": "探す"
+  }
+}
