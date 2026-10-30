@@ -1,0 +1,42 @@
+{
+  "你好": {
+    "pinyin": "nihao",
+    "display_pinyin": "nǐhǎo",
+    "meaning": "【ダミー】こんにちは"
+  },
+  "谢谢": {
+    "pinyin": "xiexie",
+    "display_pinyin": "xièxie",
+    "meaning": "【ダミー】ありがとう"
+  },
+  "学习": {
+    "pinyin": "xuexi",
+    "display_pinyin": "xuéxí",
+    "meaning": "【ダミー】学習する"
+  },
+  "朋友": {
+    "pinyin": "pengyou",
+    "display_pinyin": "péngyou",
+    "meaning": "【ダミー】友達"
+  },
+  "喜欢": {
+    "pinyin": "xihuan",
+    "display_pinyin": "xǐhuan",
+    "meaning": "【ダミー】好きだ"
+  },
+  "今天": {
+    "pinyin": "jintian",
+    "display_pinyin": "jīntiān",
+    "meaning": "【ダミー】今日"
+  },
+  "老师": {
+    "pinyin": "laoshi",
+    "display_pinyin": "lǎoshī",
+    "meaning": "【ダミー】先生"
+  },
+  "学校": {
+    "pinyin": "xuexiao",
+    "display_pinyin": "xuéxiào",
+    "meaning": "【ダミー】学校"
+  }
+}
