@@ -77,7 +77,14 @@ src/
 
 ## デプロイ
 
-GitHub と Vercel に連携済みで、`main` ブランチへの push で自動デプロイされます。公開手順・独自ドメイン設定は [`ROADMAP.md`](./ROADMAP.md) を参照。
+GitHub Actions（[`.github/workflows/nextjs-gh-pages.yml`](./.github/workflows/nextjs-gh-pages.yml)）で GitHub Pages に公開します。`main` への push で `next build`（静的エクスポート）が走り、`out/` が配信されます。ベースパスはリポジトリ名から自動で設定されます。
+
+- 2春: `https://ichirei13.github.io/chinese_practice_2sp/`
+- 2秋: `https://ichirei13.github.io/chinese_practice_2sp/2fall/`
+
+初回のみ、リポジトリの Settings → Pages → Build and deployment → Source を **GitHub Actions** にしてください（「Deploy from a branch」のままだと、リポジトリ直下の旧 `index.html` が配信され、`/2fall/` は 404 になります）。
+
+> `ROADMAP.md` と `HANDOFF.md` の公開手順は Vercel 前提の古い内容です。
 
 ## 今後の拡張候補
 
