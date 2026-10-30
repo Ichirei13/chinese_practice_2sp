@@ -1,4 +1,4 @@
-import { words, sentences } from "@/data";
+import type { SemesterData } from "@/data";
 import { shuffle } from "@/utils/shuffle";
 import { ACCENTED_CHARS } from "@/utils/tones";
 import type { SessionConfig, MasteryData, QuizItem } from "@/data/types";
@@ -11,13 +11,16 @@ export const isWeak = (m: MasteryData): boolean =>
   m.total > 0 && m.correct < m.total && m.correct / m.total < 0.8;
 
 /**
- * Pure function: builds a shuffled, filtered quiz queue from the given config
- * and mastery state. Returns [] if no items match (caller handles empty case).
+ * Pure function: builds a shuffled, filtered quiz queue from the given config,
+ * mastery state and the current semester's data. Returns [] if no items match
+ * (caller handles empty case).
  */
 export function buildQueue(
   config: SessionConfig,
-  mastery: Record<string, MasteryData>
+  mastery: Record<string, MasteryData>,
+  data: Pick<SemesterData, "words" | "sentences">
 ): QuizItem[] {
+  const { words, sentences } = data;
   const isSentence = ["rearrange", "fillin"].includes(config.mode);
 
   // 1. mode → pool 選択（word vs sentence）

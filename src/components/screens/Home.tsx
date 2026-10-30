@@ -2,12 +2,11 @@
 
 import React from "react";
 import { useAppContext } from "@/context/AppContext";
-import { SENTENCE_TAGS } from "@/data";
 import { isWeak } from "@/lib/buildQueue";
 import type { QuizMode } from "@/data/types";
 
 export default function Home() {
-  const { setScreen, stats, mastery, sessionConfig, setSessionConfig } = useAppContext();
+  const { setScreen, stats, mastery, sessionConfig, setSessionConfig, data } = useAppContext();
 
   const isSentenceMode = ["rearrange", "fillin"].includes(sessionConfig.mode);
 
@@ -178,7 +177,7 @@ export default function Home() {
                 </div>
                 <select className="select min-w-[100px]" value={sessionConfig.tag} onChange={e => setSessionConfig({...sessionConfig, tag: e.target.value})}>
                   <option value="all">すべて</option>
-                  {SENTENCE_TAGS.map(tag => (
+                  {data.sentenceTags.map(tag => (
                     <option key={tag} value={tag}>{tag}</option>
                   ))}
                 </select>

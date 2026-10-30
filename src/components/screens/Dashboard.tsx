@@ -4,12 +4,11 @@ import { useAppContext } from "@/context/AppContext";
 import { useState } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recharts";
 import { ConfirmDialog } from "@/components/ui/Modal";
-import { itemByKey } from "@/data";
 import { isWeak } from "@/lib/buildQueue";
 import type { MasteryData, QuizItem } from "@/data/types";
 
 export default function Dashboard() {
-  const { stats, mastery, resetData } = useAppContext();
+  const { stats, mastery, resetData, data } = useAppContext();
   const [filter, setFilter] = useState<"all" | "weak" | "mastered">("all");
   const [showResetConfirm, setShowResetConfirm] = useState(false);
 
@@ -20,7 +19,7 @@ export default function Dashboard() {
   type Row = { key: string; m: MasteryData; item: QuizItem };
   let rows: Row[] = Object.entries(mastery)
     .map(([key, m]): Row | null => {
-      const item = itemByKey[key] ?? m.item ?? null;
+      const item = data.itemByKey[key] ?? m.item ?? null;
       return item ? { key, m, item } : null;
     })
     .filter((r): r is Row => r !== null);

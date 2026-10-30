@@ -99,10 +99,3 @@ export function getSemesterData(id: SemesterId): SemesterData {
   }
   return data;
 }
-
-// --- 一時的な後方互換エクスポート（Task 2 で削除） ---
-const defaultData = getSemesterData(DEFAULT_SEMESTER);
-export const words = defaultData.words;
-export const sentences = defaultData.sentences;
-export const SENTENCE_TAGS = defaultData.sentenceTags;
-export const itemByKey = defaultData.itemByKey;
